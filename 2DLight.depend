@@ -1,0 +1,73 @@
+# depslib dependency file v1.0
+1396803299 source:/home/sundeep/code/sfmltestmain/2DLight/src/Light.cpp
+	"Light.h"
+
+1396803138 /home/sundeep/code/sfmltestmain/2DLight/include/Light.h
+	<string>
+	<SFML/System.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+
+1396818239 source:/home/sundeep/code/sfmltestmain/2DLight/src/main.cpp
+	<sstream>
+	"Intersect.h"
+	<math.h>
+	<iostream>
+	<unordered_set>
+	"LightEngine.h"
+
+1396296895 source:/home/sundeep/code/sfmltestmain/2DLight/src/ConvexShape.cpp
+	"ConvexShape.h"
+
+1396208119 /home/sundeep/code/sfmltestmain/2DLight/include/ConvexShape.h
+	<SFML/System.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<math.h>
+	"Light.h"
+	"ShadowFin.h"
+	<iostream>
+	<algorithm>
+
+1396220339 /home/sundeep/code/sfmltestmain/2DLight/include/Vector2fWrapper.h
+	<SFML/System.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<math.h>
+
+1396215716 /home/sundeep/code/sfmltestmain/2DLight/include/ShadowFin.h
+	<SFML/System.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<iostream>
+
+1396295800 source:/home/sundeep/code/sfmltestmain/2DLight/src/ShadowFin.cpp
+	"ShadowFin.h"
+
+1396296558 source:/home/sundeep/code/sfmltestmain/2DLight/src/Vector2fWrapper.cpp
+	"Vector2fWrapper.h"
+
+1396709791 source:/home/sundeep/code/sfmltestmain/2DLight/src/Intersect.cpp
+	"Intersect.h"
+
+1396709764 /home/sundeep/code/sfmltestmain/2DLight/include/Intersect.h
+	<SFML/System.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<iostream>
+
+1396817256 source:/home/sundeep/code/sfmltestmain/2DLight/src/LightEngine.cpp
+	"LightEngine.h"
+
+1396815564 /home/sundeep/code/sfmltestmain/2DLight/include/LightEngine.h
+	<SFML/System.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<unordered_map>
+	"Light.h"
+	"Intersect.h"
+	<unordered_set>
+	<math.h>
+
+1396815958 source:/home/sundeep/code/sfmltestmain/2DLight/src/main1.cpp
+
