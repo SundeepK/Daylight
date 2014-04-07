@@ -100,7 +100,8 @@ std::vector<float> LightEngine::getUniqueAngles(const sf::Vector2f &position)
 std::vector<Intersect> LightEngine::getIntersectPoints(const std::vector<float> &uniqueAngles, const sf::Vector2f &point)
 {
     std::vector<Intersect> intersects;
-    for(int uniqueAngleIndex=0; uniqueAngleIndex < uniqueAngles.size(); uniqueAngleIndex++){
+    for(int uniqueAngleIndex=0; uniqueAngleIndex < uniqueAngles.size(); uniqueAngleIndex++)
+    {
         float angle = uniqueAngles[uniqueAngleIndex];
         float x = cos(angle);
         float y = sin(angle);
@@ -140,19 +141,58 @@ std::vector<Intersect> LightEngine::getIntersectPoints(const std::vector<float> 
     return intersects;
 }
 
-void LightEngine::draw(sf::RenderWindow &renderWindow){
+void LightEngine::draw(sf::RenderWindow &renderWindow)
+{
 
-        sf::Vector2f mousePos(sf::Vector2f(sf::Mouse::getPosition(renderWindow).x,sf::Mouse::getPosition(renderWindow).y));
-        std::vector<float> uniqueAngles = getUniqueAngles(mousePos);
-        std::vector<Intersect> intersects = getIntersectPoints(uniqueAngles,mousePos);
+    sf::Vector2f mousePos(sf::Vector2f(sf::Mouse::getPosition(renderWindow).x,sf::Mouse::getPosition(renderWindow).y));
+
+    for ( auto lightIterator = lights.begin(); lightIterator!= lights.end(); ++lightIterator )
+    {
+        Light light = lightIterator->second;
+        std::vector<float> uniqueAngles = getUniqueAngles(light.getVec());
+        std::vector<Intersect> intersects = getIntersectPoints(uniqueAngles,light.getVec());
 
         sf::VertexArray rayLine(sf::TrianglesFan);
-        rayLine.append(sf::Vertex(mousePos, sf::Color::White));
-        for(int i = 0; i < intersects.size(); i++){
-         rayLine.append(sf::Vertex(intersects[i].getIntersectPoint(), sf::Color::White));
+        rayLine.append(sf::Vertex(light.getVec(), sf::Color::White));
+        for(int i = 0; i < intersects.size(); i++)
+        {
+            rayLine.append(sf::Vertex(intersects[i].getIntersectPoint(), sf::Color::White));
         }
         rayLine.append(sf::Vertex(intersects[0].getIntersectPoint(), sf::Color::White));
         renderWindow.draw(rayLine);
+    }
+
+
+}
+
+
+LightKey LightEngine::addLight(const std::string &key, const sf::Vector2f &lightVector, const sf::Color &lightColor)
+{
+    auto it = lights.find(key);
+//    if( it != lights.end() )
+//    {
+        lights.insert(std::make_pair(key,Light(key,lightVector, lightColor)));
+//    }
+
+    return LightKey(key);
+}
+
+void LightEngine::removeLight(const LightKey &lightKey)
+{
+
+}
+
+void LightEngine::setPosition(const LightKey &lightKey, const sf::Vector2f &newPosition)
+{
+    std::unordered_map<std::string,Light>::iterator got = lights.find (lightKey.key());
+    if (!(got == lights.end()) )
+    {
+        Light light =  got->second;
+        light.setVec(newPosition);
+         got->second = light;
+    }
+    int i = 0;
+
 }
 
 

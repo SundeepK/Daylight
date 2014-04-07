@@ -9,12 +9,19 @@ Light::~Light()
 {
 }
 
-sf::Vector2f Light::getVec(){
+sf::Vector2f Light::getVec()
+{
     return lightVector;
 }
 
 
-std::string Light::getKey(){
+std::string Light::getKey()
+{
     return lightKey;
+}
+
+void Light::setVec(const sf::Vector2f &lightVec)
+{
+    lightVector = lightVec;
 }
 

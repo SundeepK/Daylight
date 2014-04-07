@@ -8,9 +8,9 @@
 struct LightKey
 {
     public:
-    LightKey (std::string key){}
+    LightKey (std::string key) : lightKey(key){}
 
-    std::string key() { return lightKey; }
+    std::string key() const { return lightKey; }
     private:
     std::string lightKey;
 };
@@ -23,6 +23,7 @@ class Light
         Light(const std::string &lightName, const sf::Vector2f &initialPosition, const sf::Color &color);
         virtual ~Light();
         sf::Vector2f getVec();
+        void setVec(const sf::Vector2f &lightVec);
         std::string getKey();
     protected:
     private:

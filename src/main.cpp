@@ -86,6 +86,8 @@ int main()
     lightEngine.addShape(shape1);
     lightEngine.addShape(shape2);
 
+
+    LightKey mouseLight = lightEngine.addLight("mouse light", sf::Vector2f(400,400), sf::Color::White);
     while (App.isOpen())
     {
         sf::Event Event;
@@ -100,6 +102,9 @@ int main()
         Clock.restart();
 
        App.clear(sf::Color::Black);
+
+       sf::Vector2f mousePos(sf::Vector2f(sf::Mouse::getPosition(App).x,sf::Mouse::getPosition(App).y));
+       lightEngine.setPosition(mouseLight, mousePos);
 
         lightEngine.draw(App);
 
