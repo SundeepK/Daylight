@@ -45,6 +45,9 @@ class LightEngine
     std::unordered_set<sf::Vector2f, VectorHash> shapePointsSet;
     std::vector<sf::Vector2f> uniquePoints;
     std::vector<sf::Vector2f> shapeVectors;
+    sf::Shader shadowBlur;
+    sf::RenderTexture lightRenderTex;
+    float  offset;
 
 };
 

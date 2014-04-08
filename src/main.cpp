@@ -101,7 +101,7 @@ int main()
 
         Clock.restart();
 
-       App.clear(sf::Color::Black);
+       App.clear(sf::Color::White);
 
        sf::Vector2f mousePos(sf::Vector2f(sf::Mouse::getPosition(App).x,sf::Mouse::getPosition(App).y));
        lightEngine.setPosition(mouseLight, mousePos);

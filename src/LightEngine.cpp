@@ -2,6 +2,10 @@
 
 LightEngine::LightEngine()
 {
+    shadowBlur.loadFromFile("/home/sundeep/code/sfmltestmain/2DLight/src/blur.frag", sf::Shader::Fragment);
+    shadowBlur.setParameter("texture", sf::Shader::CurrentTexture);
+    lightRenderTex.create(800,800);
+    offset = 0.5;
 }
 
 LightEngine::~LightEngine()
@@ -144,6 +148,10 @@ std::vector<Intersect> LightEngine::getIntersectPoints(const std::vector<float> 
 void LightEngine::draw(sf::RenderWindow &renderWindow)
 {
 
+    lightRenderTex.clear(sf::Color(32,32,32));
+    shadowBlur.setParameter("offset",0.005 * offset);
+
+
     sf::Vector2f mousePos(sf::Vector2f(sf::Mouse::getPosition(renderWindow).x,sf::Mouse::getPosition(renderWindow).y));
 
     for ( auto lightIterator = lights.begin(); lightIterator!= lights.end(); ++lightIterator )
@@ -159,8 +167,15 @@ void LightEngine::draw(sf::RenderWindow &renderWindow)
             rayLine.append(sf::Vertex(intersects[i].getIntersectPoint(), sf::Color::White));
         }
         rayLine.append(sf::Vertex(intersects[0].getIntersectPoint(), sf::Color::White));
-        renderWindow.draw(rayLine);
+     //   renderWindow.draw(rayLine);
+        lightRenderTex.draw(rayLine, sf::BlendAdd);
     }
+
+    lightRenderTex.display();
+
+    sf::RenderStates r(sf::BlendMultiply);
+    r.shader = &shadowBlur;
+    renderWindow.draw(sf::Sprite (lightRenderTex.getTexture()), r);
 
 
 }
