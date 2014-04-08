@@ -32,6 +32,7 @@
 					<Add option="-O2" />
 					<Add directory="include" />
 					<Add directory="/usr/local/include/SFML" />
+					<Add directory="shaders" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
