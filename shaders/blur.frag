@@ -7,5 +7,5 @@ void main()
 	vec2 offy = vec2(0.0, offset);
 
 
-	gl_FragColor =  gl_Color * (pixel / 13.0);
+	gl_FragColor =  gl_Color;
 }

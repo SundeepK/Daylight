@@ -1,8 +1,0 @@
-uniform sampler2D texture;
-uniform float offset;
-
-void main()
-{
-
-
-}
