@@ -2,7 +2,7 @@
 
 LightEngine::LightEngine()
 {
-    shadowBlur.loadFromFile("/home/sundeep/code/sfmltestmain/2DLight/src/blur.frag", sf::Shader::Fragment);
+    shadowBlur.loadFromFile("shaders/blur.frag", sf::Shader::Fragment);
     shadowBlur.setParameter("texture", sf::Shader::CurrentTexture);
     lightRenderTex.create(800,800);
     offset = 0.5;
