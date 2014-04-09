@@ -2,7 +2,10 @@
 
 LightEngine::LightEngine()
 {
-    shadowBlur.loadFromFile("shaders/blur.frag", sf::Shader::Fragment);
+ //  shadowBlur.loadFromFile("shaders/vertex_blur.vert", sf::Shader::Vertex);
+    //shadowBlur.loadFromFile("shaders/blur.frag", sf::Shader::Fragment);
+    shadowBlur.loadFromFile("shaders/blur_x.frag", sf::Shader::Fragment);
+    shadowBlur.loadFromFile("shaders/blur_y.frag", sf::Shader::Fragment);
     shadowBlur.setParameter("texture", sf::Shader::CurrentTexture);
     lightRenderTex.create(800,800);
     offset = 0.5;
@@ -149,7 +152,7 @@ void LightEngine::draw(sf::RenderWindow &renderWindow)
 {
 
     lightRenderTex.clear(sf::Color(32,32,32));
-    shadowBlur.setParameter("offset",0.005 * offset);
+    //shadowBlur.setParameter("offset",0.005 * offset);
 
 
     sf::Vector2f mousePos(sf::Vector2f(sf::Mouse::getPosition(renderWindow).x,sf::Mouse::getPosition(renderWindow).y));

@@ -7,7 +7,16 @@
 
 int main()
 {
-    sf::RenderWindow App(sf::VideoMode(800, 800, 32), "2D Shadows");
+
+    sf::ContextSettings settings;
+    settings.depthBits = 24;
+    settings.stencilBits = 8;
+    settings.antialiasingLevel = 4;
+    settings.majorVersion = 3;
+    settings.minorVersion = 0;
+    sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
+
+    sf::RenderWindow App(sf::VideoMode(800, 800, desktop.bitsPerPixel), "2D Shadows",sf::Style::Default, settings);
 
     sf::Clock Clock;
 
