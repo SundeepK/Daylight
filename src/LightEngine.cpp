@@ -2,8 +2,7 @@
 
 LightEngine::LightEngine()
 {
- //  shadowBlur.loadFromFile("shaders/vertex_blur.vert", sf::Shader::Vertex);
-    //shadowBlur.loadFromFile("shaders/blur.frag", sf::Shader::Fragment);
+
     shadowBlur.loadFromFile("shaders/blur_x.frag", sf::Shader::Fragment);
     shadowBlur.loadFromFile("shaders/blur_y.frag", sf::Shader::Fragment);
     shadowBlur.setParameter("texture", sf::Shader::CurrentTexture);
