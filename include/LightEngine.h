@@ -40,7 +40,7 @@ class LightEngine
     std::vector<Intersect> getIntersectPoints(const std::vector<float> &uniqueAngles, const sf::Vector2f &point);
     std::vector<float> getUniqueAngles(const sf::Vector2f &position);
 
-    bool shoulDebugLines;
+    bool shoulDebugLines = false;
     std::unordered_map<std::string, Light> lights;
     std::unordered_set<sf::Vector2f, VectorHash> shapePointsSet;
     std::vector<sf::Vector2f> uniquePoints;

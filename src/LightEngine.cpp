@@ -153,9 +153,6 @@ void LightEngine::draw(sf::RenderWindow &renderWindow)
     lightRenderTex.clear(sf::Color(32,32,32));
     //shadowBlur.setParameter("offset",0.005 * offset);
 
-
-    sf::Vector2f mousePos(sf::Vector2f(sf::Mouse::getPosition(renderWindow).x,sf::Mouse::getPosition(renderWindow).y));
-
     for ( auto lightIterator = lights.begin(); lightIterator!= lights.end(); ++lightIterator )
     {
         Light light = lightIterator->second;
@@ -166,11 +163,21 @@ void LightEngine::draw(sf::RenderWindow &renderWindow)
         rayLine.append(sf::Vertex(light.getVec(), sf::Color::White));
         for(int i = 0; i < intersects.size(); i++)
         {
-            rayLine.append(sf::Vertex(intersects[i].getIntersectPoint(), sf::Color::White));
+           rayLine.append(sf::Vertex(intersects[i].getIntersectPoint(), sf::Color::White));
         }
-        rayLine.append(sf::Vertex(intersects[0].getIntersectPoint(), sf::Color::White));
+        rayLine.append(sf::Vertex(intersects[0].getIntersectPoint(),  sf::Color::White));
      //   renderWindow.draw(rayLine);
         lightRenderTex.draw(rayLine, sf::BlendAdd);
+
+        if(shoulDebugLines){
+
+        for(int i = 0; i < intersects.size(); i++){
+           sf::VertexArray line(sf::Lines);
+           line.append(sf::Vertex(light.getVec(), sf::Color::Red));
+           line.append(sf::Vertex(intersects[i].getIntersectPoint(), sf::Color::Red));
+           lightRenderTex.draw(line);
+            }
+        }
     }
 
     lightRenderTex.display();
@@ -210,6 +217,10 @@ void LightEngine::setPosition(const LightKey &lightKey, const sf::Vector2f &newP
     }
     int i = 0;
 
+}
+
+void LightEngine::debugLightRays(bool debugLines){
+    shoulDebugLines = debugLines;
 }
 
 
