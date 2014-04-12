@@ -3,8 +3,9 @@
 LightEngine::LightEngine()
 {
 
-    shadowBlur.loadFromFile("shaders/blur_x.frag", sf::Shader::Fragment);
-    shadowBlur.loadFromFile("shaders/blur_y.frag", sf::Shader::Fragment);
+//    shadowBlur.loadFromFile("shaders/blur_x.frag", sf::Shader::Fragment);
+//    shadowBlur.loadFromFile("shaders/blur_y.frag", sf::Shader::Fragment);
+    shadowBlur.loadFromFile("shaders/lightFs.frag", sf::Shader::Fragment);
     shadowBlur.setParameter("texture", sf::Shader::CurrentTexture);
     lightRenderTex.create(800,800);
     offset = 0.5;
@@ -150,14 +151,17 @@ std::vector<Intersect> LightEngine::getIntersectPoints(const std::vector<float> 
 void LightEngine::draw(sf::RenderWindow &renderWindow)
 {
 
-    lightRenderTex.clear(sf::Color(32,32,32));
-    //shadowBlur.setParameter("offset",0.005 * offset);
+    lightRenderTex.clear(sf::Color(50,50,50));
 
     for ( auto lightIterator = lights.begin(); lightIterator!= lights.end(); ++lightIterator )
     {
         Light light = lightIterator->second;
         std::vector<float> uniqueAngles = getUniqueAngles(light.getVec());
         std::vector<Intersect> intersects = getIntersectPoints(uniqueAngles,light.getVec());
+            shadowBlur.setParameter("lightpos",light.getVec());
+            shadowBlur.setParameter("lightColor",sf::Vector3f(1,1,0));
+            shadowBlur.setParameter("screenHeight",800);
+
 
         sf::VertexArray rayLine(sf::TrianglesFan);
         rayLine.append(sf::Vertex(light.getVec(), sf::Color::White));
@@ -167,7 +171,9 @@ void LightEngine::draw(sf::RenderWindow &renderWindow)
         }
         rayLine.append(sf::Vertex(intersects[0].getIntersectPoint(),  sf::Color::White));
      //   renderWindow.draw(rayLine);
-        lightRenderTex.draw(rayLine, sf::BlendAdd);
+        sf::RenderStates r1(sf::BlendAdd);
+        r1.shader = &shadowBlur;
+        lightRenderTex.draw(rayLine, r1);
 
         if(shoulDebugLines){
 
@@ -183,7 +189,7 @@ void LightEngine::draw(sf::RenderWindow &renderWindow)
     lightRenderTex.display();
 
     sf::RenderStates r(sf::BlendMultiply);
-    r.shader = &shadowBlur;
+   // r.shader = &shadowBlur;
     renderWindow.draw(sf::Sprite (lightRenderTex.getTexture()), r);
 
 

@@ -71,3 +71,42 @@
 
 1396815958 source:/home/sundeep/code/sfmltestmain/2DLight/src/main1.cpp
 
+1397324744 source:/home/sundeep/code/Daylight/src/Intersect.cpp
+	"Intersect.h"
+
+1397324744 /home/sundeep/code/Daylight/include/Intersect.h
+	<SFML/System.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<iostream>
+
+1397324744 source:/home/sundeep/code/Daylight/src/Light.cpp
+	"Light.h"
+
+1397324744 /home/sundeep/code/Daylight/include/Light.h
+	<string>
+	<SFML/System.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+
+1397330595 source:/home/sundeep/code/Daylight/src/LightEngine.cpp
+	"LightEngine.h"
+
+1397324744 /home/sundeep/code/Daylight/include/LightEngine.h
+	<SFML/System.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	<unordered_map>
+	"Light.h"
+	"Intersect.h"
+	<unordered_set>
+	<math.h>
+
+1397330157 source:/home/sundeep/code/Daylight/src/main.cpp
+	<sstream>
+	"Intersect.h"
+	<math.h>
+	<iostream>
+	<unordered_set>
+	"LightEngine.h"
+
