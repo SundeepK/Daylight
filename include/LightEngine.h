@@ -31,6 +31,7 @@ class LightEngine
         void debugLightRays(bool shouldDebugLines);
         void draw(sf::RenderWindow &renderWindow);
         void addShape(const sf::VertexArray &shape);
+        void enableSoftShadow(bool shouldUseSoftShadow);
 
     protected:
     private:
@@ -47,8 +48,9 @@ class LightEngine
     std::vector<sf::Vector2f> shapeVectors;
 
     bool shoulDebugLines = false;
-    float  offset;
+    bool shouldUseSoftBlur = false;
     sf::Shader lightShader;
+    sf::Shader blurShader;
     sf::RenderTexture lightRenderTex;
     sf::Color renderColor;
 

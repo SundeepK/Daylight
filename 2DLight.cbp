@@ -49,9 +49,11 @@
 		<Unit filename="include/Intersect.h" />
 		<Unit filename="include/Light.h" />
 		<Unit filename="include/LightEngine.h" />
+		<Unit filename="include/VectorMath.h" />
 		<Unit filename="src/Intersect.cpp" />
 		<Unit filename="src/Light.cpp" />
 		<Unit filename="src/LightEngine.cpp" />
+		<Unit filename="src/VectorMath.cpp" />
 		<Unit filename="src/main.cpp" />
 		<Extensions>
 			<code_completion />

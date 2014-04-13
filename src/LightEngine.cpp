@@ -2,14 +2,14 @@
 
 LightEngine::LightEngine(int width, int height, sf::Color engCol) : renderColor(engCol)
 {
-    std::cout << "width " << height << std::endl;
-//    shadowBlur.loadFromFile("shaders/blur_x.frag", sf::Shader::Fragment);
-//    shadowBlur.loadFromFile("shaders/blur_y.frag", sf::Shader::Fragment);
+    blurShader.loadFromFile("shaders/blur_x.frag", sf::Shader::Fragment);
+    blurShader.loadFromFile("shaders/blur_y.frag", sf::Shader::Fragment);
+
     lightShader.loadFromFile("shaders/lightFs.frag", sf::Shader::Fragment);
     lightShader.setParameter("texture", sf::Shader::CurrentTexture);
     lightShader.setParameter("screenHeight",height);
+
     lightRenderTex.create(width,height);
-    offset = 0.5;
 }
 
 LightEngine::~LightEngine()
@@ -180,7 +180,7 @@ void LightEngine::draw(sf::RenderWindow &renderWindow)
            rayLine.append(sf::Vertex(intersects[i].getIntersectPoint(), sf::Color::White));
         }
         rayLine.append(sf::Vertex(intersects[0].getIntersectPoint(),  sf::Color::White));
-     //   renderWindow.draw(rayLine);
+
         sf::RenderStates r1(sf::BlendAdd);
         r1.shader = &lightShader;
         lightRenderTex.draw(rayLine, r1);
@@ -198,7 +198,11 @@ void LightEngine::draw(sf::RenderWindow &renderWindow)
     lightRenderTex.display();
 
     sf::RenderStates r(sf::BlendMultiply);
-   // r.shader = &shadowBlur;
+
+    if(shouldUseSoftBlur){
+        r.shader = &blurShader;
+    }
+
     renderWindow.draw(sf::Sprite (lightRenderTex.getTexture()), r);
 
 
@@ -238,7 +242,9 @@ void LightEngine::debugLightRays(bool debugLines){
     shoulDebugLines = debugLines;
 }
 
-
+void LightEngine::enableSoftShadow(bool shouldUseSoftShadow){
+    shouldUseSoftBlur = shouldUseSoftShadow;
+}
 
 
 
