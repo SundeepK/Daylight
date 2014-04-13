@@ -16,7 +16,7 @@ int main()
     settings.minorVersion = 0;
     sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
 
-    sf::RenderWindow App(sf::VideoMode(800, 800, desktop.bitsPerPixel), "2D Shadows",sf::Style::Default, settings);
+    sf::RenderWindow App(sf::VideoMode(800, 800, desktop.bitsPerPixel), "Daylight sandbox",sf::Style::Default, settings);
 
     sf::Clock Clock;
 
@@ -88,7 +88,7 @@ int main()
     shape2.append(sf::Vertex(sf::Vector2f(100,700), sf::Color::Red));
     shape2.append(sf::Vertex(sf::Vector2f(100,600), sf::Color::Red));
 
-    LightEngine lightEngine;
+    LightEngine lightEngine(800,800, sf::Color(32,32,32));
     lightEngine.addShape(border);
     lightEngine.addShape(line1);
     lightEngine.addShape(line2);
@@ -96,7 +96,12 @@ int main()
     lightEngine.addShape(shape2);
     lightEngine.debugLightRays(false);
 
-    LightKey mouseLight = lightEngine.addLight("mouse light", sf::Vector2f(400,400), sf::Color::White);
+    LightKey mouseLight = lightEngine.addLight("mouse light", sf::Vector2f(400,400), sf::Color::White, 5);
+    LightKey secLight = lightEngine.addLight("mouse light 2", sf::Vector2f(300,350), sf::Color::Yellow, 5);
+    LightKey secLight1 = lightEngine.addLight("mouse light 3", sf::Vector2f(300,370), sf::Color::Red, 5);
+    LightKey secLight2 = lightEngine.addLight("mouse light 4", sf::Vector2f(300,400), sf::Color::Yellow, 5);
+    LightKey secLight3 = lightEngine.addLight("mouse light 5", sf::Vector2f(350,350), sf::Color::Green, 5);
+
     while (App.isOpen())
     {
         sf::Event Event;

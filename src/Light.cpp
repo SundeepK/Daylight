@@ -1,7 +1,7 @@
 #include "Light.h"
 
-Light::Light(const std::string &lightName, const sf::Vector2f &initialPosition, const sf::Color &color)
-    : lightKey(lightName), lightVector(initialPosition), lightColor(color)
+Light::Light(const std::string &lightName, const sf::Vector2f &initialPosition, const sf::Color &color, const float initialItensity)
+    : lightKey(lightName), lightVector(initialPosition), lightColor(color), intensity(initialItensity)
 {
 }
 
@@ -25,3 +25,10 @@ void Light::setVec(const sf::Vector2f &lightVec)
     lightVector = lightVec;
 }
 
+sf::Color Light::getColor(){
+    return lightColor;
+}
+
+float Light::getIntensity(){
+    return intensity;
+}

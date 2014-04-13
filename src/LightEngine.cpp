@@ -1,13 +1,14 @@
 #include "LightEngine.h"
 
-LightEngine::LightEngine()
+LightEngine::LightEngine(int width, int height, sf::Color engCol) : renderColor(engCol)
 {
-
+    std::cout << "width " << height << std::endl;
 //    shadowBlur.loadFromFile("shaders/blur_x.frag", sf::Shader::Fragment);
 //    shadowBlur.loadFromFile("shaders/blur_y.frag", sf::Shader::Fragment);
-    shadowBlur.loadFromFile("shaders/lightFs.frag", sf::Shader::Fragment);
-    shadowBlur.setParameter("texture", sf::Shader::CurrentTexture);
-    lightRenderTex.create(800,800);
+    lightShader.loadFromFile("shaders/lightFs.frag", sf::Shader::Fragment);
+    lightShader.setParameter("texture", sf::Shader::CurrentTexture);
+    lightShader.setParameter("screenHeight",height);
+    lightRenderTex.create(width,height);
     offset = 0.5;
 }
 
@@ -151,16 +152,18 @@ std::vector<Intersect> LightEngine::getIntersectPoints(const std::vector<float> 
 void LightEngine::draw(sf::RenderWindow &renderWindow)
 {
 
-    lightRenderTex.clear(sf::Color(50,50,50));
+    lightRenderTex.clear(renderColor);
 
     for ( auto lightIterator = lights.begin(); lightIterator!= lights.end(); ++lightIterator )
     {
         Light light = lightIterator->second;
         std::vector<float> uniqueAngles = getUniqueAngles(light.getVec());
         std::vector<Intersect> intersects = getIntersectPoints(uniqueAngles,light.getVec());
-            shadowBlur.setParameter("lightpos",light.getVec());
-            shadowBlur.setParameter("lightColor",sf::Vector3f(1,1,0));
-            shadowBlur.setParameter("screenHeight",800);
+        sf::Color lightColor = light.getColor();
+
+        lightShader.setParameter("lightpos",light.getVec());
+        lightShader.setParameter("lightColor", sf::Vector3f(lightColor.r, lightColor.g, lightColor.b));
+        lightShader.setParameter("intensity", light.getIntensity());
 
 
         sf::VertexArray rayLine(sf::TrianglesFan);
@@ -172,17 +175,16 @@ void LightEngine::draw(sf::RenderWindow &renderWindow)
         rayLine.append(sf::Vertex(intersects[0].getIntersectPoint(),  sf::Color::White));
      //   renderWindow.draw(rayLine);
         sf::RenderStates r1(sf::BlendAdd);
-        r1.shader = &shadowBlur;
+        r1.shader = &lightShader;
         lightRenderTex.draw(rayLine, r1);
 
         if(shoulDebugLines){
-
-        for(int i = 0; i < intersects.size(); i++){
-           sf::VertexArray line(sf::Lines);
-           line.append(sf::Vertex(light.getVec(), sf::Color::Red));
-           line.append(sf::Vertex(intersects[i].getIntersectPoint(), sf::Color::Red));
-           lightRenderTex.draw(line);
-            }
+            for(int i = 0; i < intersects.size(); i++){
+               sf::VertexArray line(sf::Lines);
+               line.append(sf::Vertex(light.getVec(), sf::Color::Red));
+               line.append(sf::Vertex(intersects[i].getIntersectPoint(), sf::Color::Red));
+               lightRenderTex.draw(line);
+                }
         }
     }
 
@@ -196,12 +198,12 @@ void LightEngine::draw(sf::RenderWindow &renderWindow)
 }
 
 
-LightKey LightEngine::addLight(const std::string &key, const sf::Vector2f &lightVector, const sf::Color &lightColor)
+LightKey LightEngine::addLight(const std::string &key, const sf::Vector2f &lightVector, const sf::Color &lightColor, const float intensity)
 {
     auto it = lights.find(key);
 //    if( it != lights.end() )
 //    {
-        lights.insert(std::make_pair(key,Light(key,lightVector, lightColor)));
+        lights.insert(std::make_pair(key,Light(key,lightVector, lightColor, intensity)));
 //    }
 
     return LightKey(key);

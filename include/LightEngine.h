@@ -21,9 +21,9 @@ class LightEngine
 {
     public:
 
-        LightEngine();
+        LightEngine(int width, int height, sf::Color);
         virtual ~LightEngine();
-        LightKey addLight(const std::string &key, const sf::Vector2f &lightVector, const sf::Color &lightColor);
+        LightKey addLight(const std::string &key, const sf::Vector2f &lightVector, const sf::Color &lightColor, const float intensity);
         void removeLight(const LightKey &lightKey);
         void setPosition(const LightKey &lightKey, const sf::Vector2f &newPosition);
         std::vector<LightKey> getLightKeys();
@@ -40,14 +40,16 @@ class LightEngine
     std::vector<Intersect> getIntersectPoints(const std::vector<float> &uniqueAngles, const sf::Vector2f &point);
     std::vector<float> getUniqueAngles(const sf::Vector2f &position);
 
-    bool shoulDebugLines = false;
     std::unordered_map<std::string, Light> lights;
     std::unordered_set<sf::Vector2f, VectorHash> shapePointsSet;
     std::vector<sf::Vector2f> uniquePoints;
     std::vector<sf::Vector2f> shapeVectors;
-    sf::Shader shadowBlur;
-    sf::RenderTexture lightRenderTex;
+
+    bool shoulDebugLines = false;
     float  offset;
+    sf::Shader lightShader;
+    sf::RenderTexture lightRenderTex;
+    sf::Color renderColor;
 
 };
 
