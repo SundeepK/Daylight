@@ -9,6 +9,7 @@
 #include "Intersect.h"
 #include <unordered_set>
 #include <math.h>
+#include "VectorMath.h"
 
 
 struct VectorHash {

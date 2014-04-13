@@ -68,9 +68,12 @@ Intersect LightEngine::getLineIntersect(sf::VertexArray ray, sf::VertexArray seg
     float s_dy =segment[1].position.y - segment[0].position.y;
 
     //parallel check
-    float r_mag = sqrt(r_dx*r_dx+r_dy*r_dy);
-    float s_mag = sqrt(s_dx*s_dx+s_dy*s_dy);
-    if(r_dx/r_mag==s_dx/s_mag && r_dy/r_mag==s_dy/s_mag)  // if they point in same direction, then theres no intersection
+
+    sf::Vector2f normalRay = VectorMath::normalize(sf::Vector2f(r_dx, r_dy));
+    sf::Vector2f normalSeg = VectorMath::normalize(sf::Vector2f(s_dx, s_dy));
+    float dot = VectorMath::dot(normalRay, normalSeg);
+
+    if(dot == 0)  // if they point in same direction, then theres no intersection
     {
         return  Intersect(sf::Vector2f(0,0), 0);
     }
@@ -78,8 +81,12 @@ Intersect LightEngine::getLineIntersect(sf::VertexArray ray, sf::VertexArray seg
     float T2 = (r_dx*(s_py-r_py) + r_dy*(r_px-s_px))/(s_dx*r_dy - s_dy*r_dx);
     float T1 = (s_px+s_dx*T2-r_px)/r_dx;
 
-    if(T1<0) return Intersect(sf::Vector2f(0,0), 0);
-    if(T2<0 || T2>1) return Intersect(sf::Vector2f(0,0), 0);
+    if(T1<0){
+        return Intersect(sf::Vector2f(0,0), 0);
+    }
+    if(T2<0 || T2>1){
+        return Intersect(sf::Vector2f(0,0), 0);
+    }
 
     return Intersect(sf::Vector2f(r_px+r_dx*T1,r_py+r_dy*T1),T1);
 }
