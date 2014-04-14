@@ -31,12 +31,14 @@ class Light
         float getIntensity();
         void generateLight(std::vector<sf::Vector2f> &shapePoints, std::vector<float> &uniqueAngles);
         void render(sf::RenderTarget &renderTarget, sf::RenderStates &renderState);
+
+        bool shouldDebugLines = false;
+
     protected:
     private:
         std::vector<Intersect> getIntersectPoints( std::vector<sf::Vector2f> &shapeVectors, const std::vector<float> &uniqueAngles);
         Intersect getLineIntersect(sf::VertexArray ray, sf::VertexArray segment);
         static bool compareIntersects(Intersect vec1, Intersect vec2);
-        bool shouldDebugLines = false;
         sf::VertexArray lightVertexArray;
         sf::VertexArray debugRays;
         sf::Vector2f lightVector;

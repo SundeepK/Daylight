@@ -28,10 +28,10 @@ class LightEngine
         void removeLight(const LightKey &lightKey);
         void setPosition(const LightKey &lightKey, const sf::Vector2f &newPosition);
         std::vector<LightKey> getLightKeys();
-        void debugLightRays(bool shouldDebugLines);
         void draw(sf::RenderWindow &renderWindow);
         void addShape(const sf::VertexArray &shape);
         void enableSoftShadow(bool shouldUseSoftShadow);
+        void debugLightRays(bool shouldDebugLines);
 
     protected:
     private:
@@ -39,7 +39,6 @@ class LightEngine
     Intersect getLineIntersect(sf::VertexArray ray, sf::VertexArray segment);
     void addUniquePoints(std::vector<sf::Vector2f> &shapePoints, std::unordered_set<sf::Vector2f, VectorHash> &points, sf::VertexArray vertextArray);
     void addPoints(std::vector<sf::Vector2f> &points, sf::VertexArray vertextArray);
-    std::vector<Intersect> getIntersectPoints(const std::vector<float> &uniqueAngles, const sf::Vector2f &point);
     std::vector<float> getUniqueAngles(const sf::Vector2f &position);
 
     std::unordered_map<std::string, Light> lights;

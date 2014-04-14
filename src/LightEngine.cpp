@@ -66,19 +66,23 @@ void LightEngine::draw(sf::RenderWindow &renderWindow)
 {
 
     lightRenderTex.clear(renderColor);
+    sf::RenderStates r1(sf::BlendAdd);
+    r1.shader = &lightShader;
 
     for ( auto lightIterator = lights.begin(); lightIterator!= lights.end(); ++lightIterator )
     {
+
         Light light = lightIterator->second;
         sf::Color lightColor = light.getColor();
-
         lightShader.setParameter("lightpos",light.getVec());
         lightShader.setParameter("lightColor", sf::Vector3f(lightColor.r, lightColor.g, lightColor.b));
         lightShader.setParameter("intensity", light.getIntensity());
 
-        sf::RenderStates r1(sf::BlendAdd);
-        r1.shader = &lightShader;
         std::vector<float> angles = getUniqueAngles(light.getVec());
+
+         if(shoulDebugLines){
+            light.shouldDebugLines = true;
+        }
 
         light.generateLight(shapeVectors,angles);
         light.render(lightRenderTex, r1);
@@ -94,7 +98,6 @@ void LightEngine::draw(sf::RenderWindow &renderWindow)
     }
 
     renderWindow.draw(sf::Sprite (lightRenderTex.getTexture()), r);
-
 
 }
 

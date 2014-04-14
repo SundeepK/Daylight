@@ -168,7 +168,6 @@ void Light::render(sf::RenderTarget &target, sf::RenderStates &renderState)
     if(shouldDebugLines)
     {
       target.draw(debugRays);
-
     }
 
 }
