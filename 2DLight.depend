@@ -80,14 +80,16 @@
 	<SFML/Window.hpp>
 	<iostream>
 
-1397404152 source:/home/sundeep/code/Daylight/src/Light.cpp
+1397510977 source:/home/sundeep/code/Daylight/src/Light.cpp
 	"Light.h"
 
-1397404120 /home/sundeep/code/Daylight/include/Light.h
+1397511001 /home/sundeep/code/Daylight/include/Light.h
 	<string>
 	<SFML/System.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
+	"Intersect.h"
+	"VectorMath.h"
 
 1397424991 source:/home/sundeep/code/Daylight/src/LightEngine.cpp
 	"LightEngine.h"
@@ -103,7 +105,7 @@
 	<math.h>
 	"VectorMath.h"
 
-1397406993 source:/home/sundeep/code/Daylight/src/main.cpp
+1397505021 source:/home/sundeep/code/Daylight/src/main.cpp
 	<sstream>
 	"Intersect.h"
 	<math.h>

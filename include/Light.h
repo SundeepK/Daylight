@@ -4,6 +4,8 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include "Intersect.h"
+#include "VectorMath.h"
 
 struct LightKey
 {
@@ -27,12 +29,20 @@ class Light
         std::string getKey();
         sf::Color getColor();
         float getIntensity();
+        void generateLight(std::vector<sf::Vector2f> &shapePoints, std::vector<float> &uniqueAngles);
+        void render(sf::RenderTarget &renderTarget, sf::RenderStates &renderState);
     protected:
     private:
-    sf::Vector2f lightVector;
-    sf::Color lightColor;
-    std::string lightKey;
-    float intensity;
+        std::vector<Intersect> getIntersectPoints( std::vector<sf::Vector2f> &shapeVectors, const std::vector<float> &uniqueAngles);
+        Intersect getLineIntersect(sf::VertexArray ray, sf::VertexArray segment);
+        static bool compareIntersects(Intersect vec1, Intersect vec2);
+        bool shouldDebugLines = false;
+        sf::VertexArray lightVertexArray;
+        sf::VertexArray debugRays;
+        sf::Vector2f lightVector;
+        sf::Color lightColor;
+        std::string lightKey;
+        float intensity;
 };
 
 #endif // LIGHT_H
