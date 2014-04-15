@@ -12,7 +12,7 @@ class Intersect
     public:
         Intersect();
         Intersect(sf::Vector2f intersect, float parameter);
-        virtual ~Intersect();
+        ~Intersect();
         sf::Vector2f getIntersectPoint();
         float getParam();
         bool isValidIntersect();

@@ -6,10 +6,12 @@
 #include <SFML/Window.hpp>
 #include <unordered_map>
 #include "Light.h"
+#include "SpotLight.h"
 #include "Intersect.h"
 #include <unordered_set>
 #include <math.h>
 #include "VectorMath.h"
+#include <memory>
 
 
 struct VectorHash {
@@ -23,7 +25,7 @@ class LightEngine
     public:
 
         LightEngine(int width, int height, sf::Color);
-        virtual ~LightEngine();
+        ~LightEngine();
         LightKey addLight(const std::string &key, const sf::Vector2f &lightVector, const sf::Color &lightColor, const float intensity);
         void removeLight(const LightKey &lightKey);
         void setPosition(const LightKey &lightKey, const sf::Vector2f &newPosition);
@@ -41,7 +43,7 @@ class LightEngine
     void addPoints(std::vector<sf::Vector2f> &points, sf::VertexArray vertextArray);
     std::vector<float> getUniqueAngles(const sf::Vector2f &position);
 
-    std::unordered_map<std::string, Light> lights;
+    std::unordered_map<std::string, std::unique_ptr<Light>> lights;
     std::unordered_set<sf::Vector2f, VectorHash> shapePointsSet;
     std::vector<sf::Vector2f> uniquePoints;
     std::vector<sf::Vector2f> shapeVectors;

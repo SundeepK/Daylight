@@ -72,20 +72,20 @@ void LightEngine::draw(sf::RenderWindow &renderWindow)
     for ( auto lightIterator = lights.begin(); lightIterator!= lights.end(); ++lightIterator )
     {
 
-        Light light = lightIterator->second;
-        sf::Color lightColor = light.getColor();
-        lightShader.setParameter("lightpos",light.getVec());
+        const std::unique_ptr<Light> light = std::move(lightIterator->second);
+        sf::Color lightColor = light->getColor();
+        lightShader.setParameter("lightpos",light->getVec());
         lightShader.setParameter("lightColor", sf::Vector3f(lightColor.r, lightColor.g, lightColor.b));
-        lightShader.setParameter("intensity", light.getIntensity());
+        lightShader.setParameter("intensity", light->getIntensity());
 
-        std::vector<float> angles = getUniqueAngles(light.getVec());
+        std::vector<float> angles = getUniqueAngles(light->getVec());
 
          if(shoulDebugLines){
-            light.shouldDebugLines = true;
+           // light.shouldDebugLines = true;
         }
 
-        light.generateLight(shapeVectors,angles);
-        light.render(lightRenderTex, r1);
+        light->generateLight(shapeVectors,angles);
+        light->render(lightRenderTex, r1);
 
     }
 
@@ -107,7 +107,8 @@ LightKey LightEngine::addLight(const std::string &key, const sf::Vector2f &light
     auto it = lights.find(key);
 //    if( it != lights.end() )
 //    {
-        lights.insert(std::make_pair(key,Light(key,lightVector, lightColor, intensity)));
+        std::unique_ptr<Light> light( new SpotLight(key, lightVector, lightColor, intensity));
+        lights.insert(std::make_pair(key,  light));
 //    }
 
     return LightKey(key);
@@ -120,11 +121,11 @@ void LightEngine::removeLight(const LightKey &lightKey)
 
 void LightEngine::setPosition(const LightKey &lightKey, const sf::Vector2f &newPosition)
 {
-    std::unordered_map<std::string,Light>::iterator got = lights.find (lightKey.key());
+    std::unordered_map<std::string,SpotLight>::iterator got = lights.find (lightKey.key());
     if (!(got == lights.end()) )
     {
-        Light light =  got->second;
-        light.setVec(newPosition);
+        std::unique_ptr<Light> light =  got->second;
+        light->setVec(newPosition);
          got->second = light;
     }
     int i = 0;
