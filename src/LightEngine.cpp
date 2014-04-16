@@ -69,23 +69,22 @@ void LightEngine::draw(sf::RenderWindow &renderWindow)
     sf::RenderStates r1(sf::BlendAdd);
     r1.shader = &lightShader;
 
-    for ( auto lightIterator = lights.begin(); lightIterator!= lights.end(); ++lightIterator )
+    for ( auto lightItr = lights.begin(); lightItr!= lights.end(); ++lightItr )
     {
-
-     //    std::unique_ptr<Light> light(std::move(lightIterator->second));
-        sf::Color lightColor = lightIterator->second->getColor();
-        lightShader.setParameter("lightpos",lightIterator->second->getVec());
+        std::unique_ptr<Light> &light = lightItr->second;
+        sf::Color lightColor = light->getColor();
+        lightShader.setParameter("lightpos",light->getVec());
         lightShader.setParameter("lightColor", sf::Vector3f(lightColor.r, lightColor.g, lightColor.b));
-        lightShader.setParameter("intensity", lightIterator->second->getIntensity());
+        lightShader.setParameter("intensity", light->getIntensity());
 
-        std::vector<float> angles = getUniqueAngles(lightIterator->second->getVec());
+        std::vector<float> angles = getUniqueAngles(light->getVec());
 
          if(shoulDebugLines){
-           // light.shouldDebugLines = true;
+            light->shouldDebugLines = true;
         }
 
-        lightIterator->second->generateLight(shapeVectors,angles);
-        lightIterator->second->render(lightRenderTex, r1);
+        light->generateLight(shapeVectors,angles);
+        light->render(lightRenderTex, r1);
 
     }
 

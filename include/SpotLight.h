@@ -26,8 +26,6 @@ public:
     void generateLight(std::vector<sf::Vector2f> &shapePoints, std::vector<float> &uniqueAngles) ;
     void render(sf::RenderTarget &renderTarget, sf::RenderStates &renderState) ;
 
-    bool shouldDebugLines = false;
-
 protected:
 private:
     std::vector<Intersect> getIntersectPoints( std::vector<sf::Vector2f> &shapeVectors, const std::vector<float> &uniqueAngles);

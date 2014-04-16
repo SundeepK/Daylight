@@ -27,6 +27,7 @@ class Light
         virtual std::string getKey()  = 0;
         virtual sf::Color getColor()  = 0;
         virtual float getIntensity()  = 0;
+        bool shouldDebugLines = false;
 
     protected:
     private:
