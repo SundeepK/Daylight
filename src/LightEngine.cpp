@@ -72,20 +72,20 @@ void LightEngine::draw(sf::RenderWindow &renderWindow)
     for ( auto lightIterator = lights.begin(); lightIterator!= lights.end(); ++lightIterator )
     {
 
-        const std::unique_ptr<Light> light = std::move(lightIterator->second);
-        sf::Color lightColor = light->getColor();
-        lightShader.setParameter("lightpos",light->getVec());
+     //    std::unique_ptr<Light> light(std::move(lightIterator->second));
+        sf::Color lightColor = lightIterator->second->getColor();
+        lightShader.setParameter("lightpos",lightIterator->second->getVec());
         lightShader.setParameter("lightColor", sf::Vector3f(lightColor.r, lightColor.g, lightColor.b));
-        lightShader.setParameter("intensity", light->getIntensity());
+        lightShader.setParameter("intensity", lightIterator->second->getIntensity());
 
-        std::vector<float> angles = getUniqueAngles(light->getVec());
+        std::vector<float> angles = getUniqueAngles(lightIterator->second->getVec());
 
          if(shoulDebugLines){
            // light.shouldDebugLines = true;
         }
 
-        light->generateLight(shapeVectors,angles);
-        light->render(lightRenderTex, r1);
+        lightIterator->second->generateLight(shapeVectors,angles);
+        lightIterator->second->render(lightRenderTex, r1);
 
     }
 
@@ -107,8 +107,8 @@ LightKey LightEngine::addLight(const std::string &key, const sf::Vector2f &light
     auto it = lights.find(key);
 //    if( it != lights.end() )
 //    {
-        std::unique_ptr<Light> light( new SpotLight(key, lightVector, lightColor, intensity));
-        lights.insert(std::make_pair(key,  light));
+//        std::unique_ptr<Light> light( new SpotLight(key, lightVector, lightColor, intensity));
+        lights.emplace(std::make_pair(key,  std::unique_ptr<Light> ( new SpotLight(key, lightVector, lightColor, intensity))));
 //    }
 
     return LightKey(key);
@@ -121,12 +121,12 @@ void LightEngine::removeLight(const LightKey &lightKey)
 
 void LightEngine::setPosition(const LightKey &lightKey, const sf::Vector2f &newPosition)
 {
-    std::unordered_map<std::string,SpotLight>::iterator got = lights.find (lightKey.key());
+    std::unordered_map<std::string,std::unique_ptr<Light>>::iterator got = lights.find (lightKey.key());
     if (!(got == lights.end()) )
     {
-        std::unique_ptr<Light> light =  got->second;
+        std::unique_ptr<Light> light(std::move(got->second));
         light->setVec(newPosition);
-         got->second = light;
+         got->second = std::move(light);
     }
     int i = 0;
 

@@ -23,28 +23,28 @@ SpotLight::SpotLight(SpotLight &&that) :  lightVertexArray (that.lightVertexArra
 {
 }
 
-virtual sf::Vector2f SpotLight::getVec() const
+sf::Vector2f SpotLight::getVec()
 {
     return lightVector;
 }
 
 
-virtual std::string SpotLight::getKey() const
+std::string SpotLight::getKey()
 {
     return lightKey;
 }
 
-virtual void SpotLight::setVec(const sf::Vector2f &lightVec)
+void SpotLight::setVec(const sf::Vector2f &lightVec)
 {
     lightVector = lightVec;
 }
 
-virtual sf::Color SpotLight::getColor() const
+sf::Color SpotLight::getColor()
 {
     return lightColor;
 }
 
-virtual float SpotLight::getIntensity() const
+float SpotLight::getIntensity()
 {
     return intensity;
 }
@@ -146,7 +146,7 @@ std::vector<Intersect> SpotLight::getIntersectPoints( std::vector<sf::Vector2f> 
     return intersects;
 }
 
-virtual void SpotLight::generateLight(std::vector<sf::Vector2f> &shapePoints, std::vector<float> &uniqueAngles) const
+void SpotLight::generateLight(std::vector<sf::Vector2f> &shapePoints, std::vector<float> &uniqueAngles)
 {
 
     std::vector<Intersect> intersects = getIntersectPoints(shapePoints,uniqueAngles);
@@ -174,7 +174,7 @@ virtual void SpotLight::generateLight(std::vector<sf::Vector2f> &shapePoints, st
 }
 
 
-virtual void SpotLight::render(sf::RenderTarget &target, sf::RenderStates &renderState) const
+void SpotLight::render(sf::RenderTarget &target, sf::RenderStates &renderState)
 {
 
     target.draw(lightVertexArray, renderState);

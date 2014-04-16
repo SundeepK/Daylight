@@ -17,13 +17,14 @@ public:
     ~SpotLight();
     SpotLight(const SpotLight &that);
     SpotLight(SpotLight &&that);
-    virtual sf::Vector2f getVec() const;
-    virtual void setVec(const sf::Vector2f &lightVec) ;
-    virtual std::string getKey() const;
-    virtual sf::Color getColor() const;
-    virtual  float getIntensity() const;
-    virtual  void generateLight(std::vector<sf::Vector2f> &shapePoints, std::vector<float> &uniqueAngles) const;
-    virtual void render(sf::RenderTarget &renderTarget, sf::RenderStates &renderState) const;
+
+    sf::Vector2f getVec() ;
+    void setVec(const sf::Vector2f &lightVec) ;
+    std::string getKey() ;
+    sf::Color getColor() ;
+    float getIntensity() ;
+    void generateLight(std::vector<sf::Vector2f> &shapePoints, std::vector<float> &uniqueAngles) ;
+    void render(sf::RenderTarget &renderTarget, sf::RenderStates &renderState) ;
 
     bool shouldDebugLines = false;
 
