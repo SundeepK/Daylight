@@ -27,9 +27,9 @@ public:
 
 protected:
 private:
+    static bool compareIntersects(Intersect vec1, Intersect vec2);
     std::vector<Intersect> getIntersectPoints( std::vector<sf::Vector2f> &shapeVectors, const std::vector<float> &uniqueAngles);
     Intersect getLineIntersect(sf::VertexArray ray, sf::VertexArray segment);
-    static bool compareIntersects(Intersect vec1, Intersect vec2);
     sf::VertexArray lightVertexArray;
     sf::VertexArray debugRays;
     sf::Vector2f lightVector;
@@ -38,6 +38,8 @@ private:
     float intensity;
     float facingAngle;
     float openingAngle;
+
+    std::vector<sf::Vector2f> directionalRays;
 };
 
 #endif // DIRECTIONALLIGHT_H

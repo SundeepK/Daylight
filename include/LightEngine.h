@@ -12,6 +12,7 @@
 #include <math.h>
 #include "VectorMath.h"
 #include <memory>
+#include "DirectionalLight.h"
 
 
 struct VectorHash {
@@ -27,6 +28,8 @@ class LightEngine
         LightEngine(int width, int height, sf::Color);
         ~LightEngine();
         LightKey addLight(const std::string &key, const sf::Vector2f &lightVector, const sf::Color &lightColor, const float intensity);
+        LightKey addDirectionLight(const std::string &key, const sf::Vector2f &lightVector, const sf::Color &lightColor, const float intensity, const float angleIn, const float openingAngle );
+
         void removeLight(const LightKey &lightKey);
         void setPosition(const LightKey &lightKey, const sf::Vector2f &newPosition);
         std::vector<LightKey> getLightKeys();
