@@ -8,8 +8,8 @@ DirectionalLight::DirectionalLight(const std::string &lightName, const sf::Vecto
     float offsetAngle   = openingAngle * M_PI / 180;
     float radius = 200;
 
-    directionalRays.push_back(sf::Vector2f((radius*cos(angle + offsetAngle)),(radius*sin(angle + offsetAngle ))));
-    directionalRays.push_back(sf::Vector2f((radius*cos(angle - offsetAngle)),(radius*sin(angle - offsetAngle ))));
+    directionalRays.push_back(sf::Vector2f(lightVector.x + (cos(angle + offsetAngle)),lightVector.y + (sin(angle + offsetAngle ))));
+    directionalRays.push_back(sf::Vector2f( lightVector.x + (cos(angle - offsetAngle)), lightVector.y+(sin(angle - offsetAngle ))));
 
 
 }
@@ -33,6 +33,12 @@ std::string DirectionalLight::getKey()
 void DirectionalLight::setVec(const sf::Vector2f &lightVec)
 {
     lightVector = lightVec;
+    float angle     = facingAngle * M_PI / 180;
+    float offsetAngle   = openingAngle * M_PI / 180;
+    float radius = 200;
+    directionalRays.clear();
+    directionalRays.push_back(sf::Vector2f(lightVector.x + (cos(angle + offsetAngle)),lightVector.y + (sin(angle + offsetAngle ))));
+    directionalRays.push_back(sf::Vector2f( lightVector.x + (cos(angle - offsetAngle)), lightVector.y+(sin(angle - offsetAngle ))));
 }
 
 sf::Color DirectionalLight::getColor()
@@ -134,11 +140,9 @@ std::vector<Intersect> DirectionalLight::getIntersectPoints( std::vector<sf::Vec
         {
            // closestInterect.setAngle(angle);
             intersects.push_back(closestInterect);
-        }else{
-            intersects.push_back(Intersect(directionalRays[uniqueAngleIndex], 1000));
         }
     }
-    std::sort(intersects.begin(), intersects.end(), compareIntersects);
+   // std::sort(intersects.begin(), intersects.end(), compareIntersects);
     return intersects;
 }
 
