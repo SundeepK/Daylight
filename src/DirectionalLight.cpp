@@ -4,12 +4,24 @@ DirectionalLight::DirectionalLight(const std::string &lightName, const sf::Vecto
        : Light(), lightKey(lightName), lightVector(initialPosition), lightColor(color), intensity(initailItensity), facingAngle(angleIn), openingAngle(openAngle)
 {
 
-    float angle     = facingAngle * M_PI / 180;
+    float fangle     = facingAngle * M_PI / 180;
     float offsetAngle   = openingAngle * M_PI / 180;
+      // fangle -= offsetAngle;
     float radius = 200;
 
-    directionalRays.push_back(sf::Vector2f(lightVector.x + (cos(angle + offsetAngle)),lightVector.y + (sin(angle + offsetAngle ))));
-    directionalRays.push_back(sf::Vector2f( lightVector.x + (cos(angle - offsetAngle)), lightVector.y+(sin(angle - offsetAngle ))));
+        sf::Vector2f l(cos(offsetAngle), sin(offsetAngle));
+       for(float angle=0;angle<offsetAngle;angle+=(M_PI*2)/20){
+             directionalRays.push_back(sf::Vector2f(lightVector.x + (cos(angle + fangle  )) ,lightVector.y + (sin(angle  + fangle ))  ));
+
+        }
+
+//    	for(float angle=offsetAngle;angle>offsetAngle/2;angle-=(M_PI*2)/20){
+//             directionalRays.push_back(sf::Vector2f(lightVector.x + (cos(angle + fangle * 0.5)),lightVector.y + (sin(angle  + fangle))));
+//        }
+
+
+//    directionalRays.push_back(sf::Vector2f(lightVector.x + (cos(angle + offsetAngle)),lightVector.y + (sin(angle + offsetAngle ))));
+//    directionalRays.push_back(sf::Vector2f( lightVector.x + (cos(angle - offsetAngle)), lightVector.y+(sin(angle - offsetAngle ))));
 
 
 }
@@ -142,7 +154,7 @@ std::vector<Intersect> DirectionalLight::getIntersectPoints( std::vector<sf::Vec
             intersects.push_back(closestInterect);
         }
     }
-   // std::sort(intersects.begin(), intersects.end(), compareIntersects);
+    std::sort(intersects.begin(), intersects.end(), compareIntersects);
     return intersects;
 }
 
@@ -150,12 +162,26 @@ void DirectionalLight::generateLight(std::vector<sf::Vector2f> &shapePoints, std
 {
 
     std::vector<Intersect> intersects = getIntersectPoints(shapePoints,uniqueAngles);
-    sf::VertexArray rayLine(sf::Triangles);
+
+
+     sf::VertexArray rayLine(sf::TrianglesFan);
+    rayLine.append(sf::Vertex(lightVector, sf::Color::White));
     sf::VertexArray rays(sf::Lines);
 
-    rayLine.append(sf::Vertex(lightVector, sf::Color::White));
-    rayLine.append(sf::Vertex(intersects[0].getIntersectPoint(), sf::Color::White));
-    rayLine.append(sf::Vertex(intersects[1].getIntersectPoint(), sf::Color::White));
+    for(int i = 0; i < intersects.size(); i++)
+    {
+        rayLine.append(sf::Vertex(intersects[i].getIntersectPoint(), sf::Color::White));
+
+        if(shouldDebugLines)
+        {
+            rays.append(sf::Vertex(lightVector, sf::Color::Red));
+            rays.append(sf::Vertex(intersects[i].getIntersectPoint(), sf::Color::Red));
+        }
+    }
+
+//    rayLine.append(sf::Vertex(lightVector, sf::Color::White));
+//    rayLine.append(sf::Vertex(intersects[0].getIntersectPoint(), sf::Color::White));
+//    rayLine.append(sf::Vertex(intersects[1].getIntersectPoint(), sf::Color::White));
 
 //        if(shouldDebugLines)
 //        {
