@@ -10,8 +10,8 @@ DirectionalLight::DirectionalLight(const std::string &lightName, const sf::Vecto
     float radius = 200;
 
         sf::Vector2f l(cos(offsetAngle), sin(offsetAngle));
-       for(float angle=0;angle<offsetAngle;angle+=(M_PI*2)/20){
-             directionalRays.push_back(sf::Vector2f(lightVector.x + (cos(angle + fangle  )) ,lightVector.y + (sin(angle  + fangle ))  ));
+       for(float angle=fangle-offsetAngle/2;angle<fangle+offsetAngle/2;angle+=(M_PI*2)/20){
+             directionalRays.push_back(sf::Vector2f(lightVector.x + (cos(angle )) ,lightVector.y + (sin(angle   ))  ));
 
         }
 
