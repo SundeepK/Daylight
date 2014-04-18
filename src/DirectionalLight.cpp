@@ -73,10 +73,29 @@ std::vector<Intersect> DirectionalLight::getIntersectPoints( std::vector<sf::Vec
     for(int uniqueAngleIndex=0; uniqueAngleIndex < directionalRays.size(); uniqueAngleIndex++)
     {
 
+//    for(int uniqueAngleIndex=0; uniqueAngleIndex < uniqueAngles.size(); uniqueAngleIndex++)
+//    {
+//        float angle = uniqueAngles[uniqueAngleIndex];
+//        float x = cos(angle);
+//        float y = sin(angle);
+
         sf::VertexArray ray(sf::Lines);
         ray.append(sf::Vertex(lightVector, sf::Color::Black));
         ray.append(sf::Vertex(directionalRays[uniqueAngleIndex], sf::Color::Black));
 
+        Intersect closestInterect = getIntersect(shapeVectors, ray);
+
+        if(closestInterect.getParam() < 1000)
+        {
+            // closestInterect.setAngle(angle);
+            intersects.push_back(closestInterect);
+        }
+    }
+    std::sort(intersects.begin(), intersects.end(), compareIntersects);
+    return intersects;
+}
+
+Intersect DirectionalLight::getIntersect(std::vector<sf::Vector2f> &shapeVectors,  sf::VertexArray ray){
         Intersect closestInterect(sf::Vector2f(799,799), 1000);
         for(int i = 0 ;  i < shapeVectors.size(); i+=2)
         {
@@ -97,16 +116,10 @@ std::vector<Intersect> DirectionalLight::getIntersectPoints( std::vector<sf::Vec
             }
 
         }
-
-        if(closestInterect.getParam() < 1000)
-        {
-            // closestInterect.setAngle(angle);
-            intersects.push_back(closestInterect);
-        }
-    }
-    std::sort(intersects.begin(), intersects.end(), compareIntersects);
-    return intersects;
+        return closestInterect;
 }
+
+
 
 void DirectionalLight::generateLight(std::vector<sf::Vector2f> &shapePoints, std::vector<float> &uniqueAngles)
 {

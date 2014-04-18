@@ -30,7 +30,7 @@ private:
     static bool compareIntersects(Intersect vec1, Intersect vec2);
     std::vector<Intersect> getIntersectPoints( std::vector<sf::Vector2f> &shapeVectors, const std::vector<float> &uniqueAngles);
     void buildLightRays(std::vector<sf::Vector2f> &lightRays);
-
+    Intersect getIntersect(std::vector<sf::Vector2f> &shapeVectors,  sf::VertexArray ray);
     sf::VertexArray lightVertexArray;
     sf::VertexArray debugRays;
     sf::Vector2f lightVector;
