@@ -29,7 +29,8 @@ protected:
 private:
     static bool compareIntersects(Intersect vec1, Intersect vec2);
     std::vector<Intersect> getIntersectPoints( std::vector<sf::Vector2f> &shapeVectors, const std::vector<float> &uniqueAngles);
-    Intersect getLineIntersect(sf::VertexArray ray, sf::VertexArray segment);
+    void buildLightRays(std::vector<sf::Vector2f> &lightRays);
+
     sf::VertexArray lightVertexArray;
     sf::VertexArray debugRays;
     sf::Vector2f lightVector;

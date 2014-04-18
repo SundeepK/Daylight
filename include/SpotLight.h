@@ -29,7 +29,6 @@ public:
 protected:
 private:
     std::vector<Intersect> getIntersectPoints( std::vector<sf::Vector2f> &shapeVectors, const std::vector<float> &uniqueAngles);
-    Intersect getLineIntersect(sf::VertexArray ray, sf::VertexArray segment);
     static bool compareIntersects(Intersect vec1, Intersect vec2);
     sf::VertexArray lightVertexArray;
     sf::VertexArray debugRays;

@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <math.h>
+#include "Intersect.h"
 
 class VectorMath
 {
@@ -18,6 +19,8 @@ class VectorMath
         sf::Vector2f getVector2f();
         void setVector2f(sf::Vector2f vec);
         void rotateVec(double radianAngle);
+        static Intersect getLineIntersect(sf::VertexArray ray, sf::VertexArray segment);
+
     protected:
     private:
     sf::Vector2f vectorWrapped;

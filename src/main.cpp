@@ -88,7 +88,7 @@ int main()
     shape2.append(sf::Vertex(sf::Vector2f(100,700), sf::Color::Red));
     shape2.append(sf::Vertex(sf::Vector2f(100,600), sf::Color::Red));
 
-    LightEngine lightEngine(800,800, sf::Color(1,1,1));
+    LightEngine lightEngine(800,800, sf::Color(32,32,32));
     lightEngine.addShape(border);
     lightEngine.addShape(line1);
     lightEngine.addShape(line2);
@@ -121,7 +121,7 @@ int main()
        App.clear(sf::Color::White);
 
        sf::Vector2f mousePos(sf::Vector2f(sf::Mouse::getPosition(App).x,sf::Mouse::getPosition(App).y));
-      // lightEngine.setPosition(secLight4, mousePos);
+       lightEngine.setPosition(secLight4, mousePos);
 
         lightEngine.draw(App);
 
