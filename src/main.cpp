@@ -97,7 +97,7 @@ int main()
     lightEngine.debugLightRays(true);
     lightEngine.enableSoftShadow(true);
 
-    LightKey mouseLight = lightEngine.addLight("mouse light", sf::Vector2f(400,400), sf::Color::White, 5);
+   // LightKey mouseLight = lightEngine.addLight("mouse light", sf::Vector2f(400,400), sf::Color::White, 5);
 //LightKey secLight = lightEngine.addLight("mouse light 2", sf::Vector2f(300,350), sf::Color::Yellow, 5);
   //  LightKey secLight1 = lightEngine.addLight("mouse light 3", sf::Vector2f(300,370), sf::Color::Red, 5);
    // LightKey secLight2 = lightEngine.addLight("mouse light 4", sf::Vector2f(300,400), sf::Color::Yellow, 5);

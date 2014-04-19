@@ -17,9 +17,9 @@ void DirectionalLight::buildLightRays(std::vector<sf::Vector2f> &lightRays)
     float endAngle = fangle+offsetAngle/2;
     for(float angle=(fangle-offsetAngle/2); angle< endAngle; angle+=(M_PI*2)/100)
     {
-        directionalRays.push_back(sf::Vector2f(lightVector.x + cos(angle+0.01f) ,lightVector.y + sin(angle)));
+        directionalRays.push_back(sf::Vector2f(lightVector.x + cos(angle+0.01f) ,lightVector.y + sin(angle +0.01f)));
         directionalRays.push_back(sf::Vector2f(lightVector.x + cos(angle) ,lightVector.y + sin(angle)));
-        directionalRays.push_back(sf::Vector2f(lightVector.x + cos(angle-0.01f) ,lightVector.y + sin(angle)));
+        directionalRays.push_back(sf::Vector2f(lightVector.x + cos(angle-0.01f) ,lightVector.y + sin(angle  -0.01f)));
 
     }
 }
@@ -71,49 +71,97 @@ bool DirectionalLight::compareIntersects(Intersect vec1, Intersect vec2)
     return false;
 }
 
+//std::vector<Intersect> DirectionalLight::getIntersectPoints( std::vector<sf::Vector2f> &shapeVectors, const std::vector<float> &uniqueAngles)
+//{
+//
+//    std::vector<Intersect> intersects;
+////    for(int uniqueAngleIndex=0; uniqueAngleIndex < directionalRays.size(); uniqueAngleIndex++)
+////    {
+//
+//    float fangle     = facingAngle * M_PI / 180;
+//    float offsetAngle   = openingAngle * M_PI / 180;
+//    //float radius = 200; TODO use a radius value
+//
+//    float endAngle = fangle+offsetAngle;
+//    float startAngle = fangle-offsetAngle/2;
+//
+//        sf::VertexArray ray(sf::Lines);
+//    ray.append(sf::Vertex(lightVector, sf::Color::Black));
+//    ray.append(sf::Vertex(directionalRays[0], sf::Color::Black));
+//
+//    Intersect closestInterect = getIntersect(shapeVectors, ray);
+//
+//    if(closestInterect.getParam() < 1000)
+//    {
+//        intersects.push_back(closestInterect);
+//    }
+//
+//    for(int uniqueAngleIndex=0; uniqueAngleIndex < uniqueAngles.size(); uniqueAngleIndex++)
+//    {
+//        float angle = uniqueAngles[uniqueAngleIndex];
+//
+//        float x = cos(angle);
+//        float y = sin(angle);
+//
+//        sf::Vector2f rayline(x + lightVector.x, y +lightVector.y );
+//        sf::VertexArray ray(sf::Lines);
+//
+//        ray.append(sf::Vertex(lightVector, sf::Color::Black));
+//        ray.append(sf::Vertex(rayline, sf::Color::Black));
+//
+//        Intersect closestInterect = getIntersect(shapeVectors, ray);
+//
+//        if(closestInterect.getParam() < 1000)
+//        {
+//            sf::Vector2f intersectV = closestInterect.getIntersectPoint();
+//            sf::Vector2f normalIntersectVec = VectorMath::normalize(sf::Vector2f (lightVector.x -intersectV.x, lightVector.y - intersectV.y ) );
+//            sf::Vector2f normalLIghtV = VectorMath::normalize(lightVector);
+//
+//            float a = acos((normalIntersectVec.x * normalLIghtV.x) + (normalIntersectVec.y * normalLIghtV.y));
+//
+//            if(a < openingAngle/2)
+//            {
+//                intersects.push_back(closestInterect);
+//            }
+//
+//        }
+//
+//
+//    }
+//
+//
+//
+//    sf::VertexArray ray2(sf::Lines);
+//    ray2.append(sf::Vertex(lightVector, sf::Color::Black));
+//    ray2.append(sf::Vertex(directionalRays[directionalRays.size()-1], sf::Color::Black));
+//
+//    Intersect closestInterect2 = getIntersect(shapeVectors, ray2);
+//
+//    if(closestInterect2.getParam() < 1000)
+//    {
+//        intersects.push_back(closestInterect2);
+//    }
+//
+//
+//    std::sort(intersects.begin(), intersects.end(), compareIntersects);
+//    return intersects;
+//}
+
+
 std::vector<Intersect> DirectionalLight::getIntersectPoints( std::vector<sf::Vector2f> &shapeVectors, const std::vector<float> &uniqueAngles)
 {
-
     std::vector<Intersect> intersects;
-//    for(int uniqueAngleIndex=0; uniqueAngleIndex < directionalRays.size(); uniqueAngleIndex++)
-//    {
 
-    float fangle     = facingAngle * M_PI / 180;
+
+        float fangle     = facingAngle * M_PI / 180;
     float offsetAngle   = openingAngle * M_PI / 180;
     //float radius = 200; TODO use a radius value
 
-    float endAngle = fangle+offsetAngle/2;
-    float startAngle = fangle-offsetAngle/2;
+    float endAngle = (fangle+offsetAngle)/2;
+    float startAngle = (fangle-offsetAngle)/2;
 
-    for(int uniqueAngleIndex=0; uniqueAngleIndex < uniqueAngles.size(); uniqueAngleIndex++)
-    {
-        float angle = uniqueAngles[uniqueAngleIndex];
 
-        float x = cos(angle);
-        float y = sin(angle);
-
-        sf::Vector2f rayline(x + lightVector.x, y +lightVector.y );
         sf::VertexArray ray(sf::Lines);
-
-        ray.append(sf::Vertex(lightVector, sf::Color::Black));
-        ray.append(sf::Vertex(rayline, sf::Color::Black));
-
-        Intersect closestInterect = getIntersect(shapeVectors, ray);
-
-        if(closestInterect.getParam() < 1000)
-        {
-            float a = atan2( closestInterect.getIntersectPoint().y -lightVector.y , closestInterect.getIntersectPoint().x -lightVector.x  );
-
-            if(a > startAngle && a < endAngle)
-            {
-                intersects.push_back(closestInterect);
-            }
-        }
-
-
-    }
-
-    sf::VertexArray ray(sf::Lines);
     ray.append(sf::Vertex(lightVector, sf::Color::Black));
     ray.append(sf::Vertex(directionalRays[0], sf::Color::Black));
 
@@ -124,7 +172,85 @@ std::vector<Intersect> DirectionalLight::getIntersectPoints( std::vector<sf::Vec
         intersects.push_back(closestInterect);
     }
 
-    sf::VertexArray ray2(sf::Lines);
+    for(int uniqueAngleIndex=0; uniqueAngleIndex < uniqueAngles.size(); uniqueAngleIndex++)
+    {
+        float angle = uniqueAngles[uniqueAngleIndex];
+        float x = cos(angle);
+        float y = sin(angle);
+
+        sf::VertexArray ray(sf::Lines);
+         sf::Vector2f rayl(lightVector.x + x,lightVector.y + y);
+        ray.append(sf::Vertex(lightVector, sf::Color::Black));
+        ray.append(sf::Vertex(rayl, sf::Color::Black));
+
+        Intersect closestInterect(sf::Vector2f(799,799), 1000);
+
+            sf::Vector2f lightDIr ( cos(fangle), sin(fangle) );
+            sf::Vector2f normalIntersectVec = VectorMath::normalize(sf::Vector2f (rayl.x - lightVector.x, rayl.y - lightVector.y  ) );
+            sf::Vector2f normalLIghtV = VectorMath::normalize(lightDIr);
+
+            float a = acos((normalIntersectVec.x * normalLIghtV.x) + (normalIntersectVec.y * normalLIghtV.y));
+
+        if(a  < offsetAngle /2)
+            {
+
+
+        for(int i = 0 ;  i < shapeVectors.size(); i+=2)
+        {
+            sf::Vector2f seg1 =shapeVectors[i];
+            sf::Vector2f seg2 =shapeVectors[i+1];
+            sf::VertexArray segLine(sf::Lines);
+            segLine.append(seg1);
+            segLine.append(seg2);
+            Intersect intersect =  VectorMath::getLineIntersect(ray, segLine);
+
+            sf::Vector2f lightDIr ( lightVector.x + cos(fangle), lightVector.y + sin(fangle) );
+            sf::Vector2f normalIntersectVec = VectorMath::normalize(sf::Vector2f (seg1.x - lightVector.x, seg1.y - lightVector.y  ) );
+            sf::Vector2f normalLIghtV = VectorMath::normalize(lightDIr);
+
+            float a = acos((normalIntersectVec.x * normalLIghtV.x) + (normalIntersectVec.y * normalLIghtV.y));
+
+//            if(a > offsetAngle/2){
+//                continue;
+//            }
+
+            if(intersect.getIntersectPoint().x > 0 && intersect.getIntersectPoint().y > 0)
+            {
+                //add only the intersect with the smallest magnitude since it will be closest intersect
+                if(intersect.getParam() < closestInterect.getParam())
+                {
+                    closestInterect = intersect;
+                }
+            }
+
+        }
+
+        if(closestInterect.getParam() < 1000)
+        {
+            closestInterect.setAngle(angle);
+            intersects.push_back(closestInterect);
+        }
+    }
+
+//        if(closestInterect.getParam() < 1000)
+//        {
+//            sf::Vector2f intersectV = closestInterect.getIntersectPoint();
+//            sf::Vector2f lightDIr (   cos(fangle),  sin(fangle) );
+//            sf::Vector2f normalIntersectVec = VectorMath::normalize(sf::Vector2f (x - lightVector.x, y - lightVector.y  ) );
+//            sf::Vector2f normalLIghtV = VectorMath::normalize(lightDIr);
+//
+//            float a = acos((normalIntersectVec.x * normalLIghtV.x) + (normalIntersectVec.y * normalLIghtV.y));
+//
+//            if(a < offsetAngle/2)
+//            {
+//                intersects.push_back(closestInterect);
+//            }
+//
+//        }
+
+    }
+
+        sf::VertexArray ray2(sf::Lines);
     ray2.append(sf::Vertex(lightVector, sf::Color::Black));
     ray2.append(sf::Vertex(directionalRays[directionalRays.size()-1], sf::Color::Black));
 
@@ -135,10 +261,10 @@ std::vector<Intersect> DirectionalLight::getIntersectPoints( std::vector<sf::Vec
         intersects.push_back(closestInterect2);
     }
 
-
     std::sort(intersects.begin(), intersects.end(), compareIntersects);
     return intersects;
 }
+
 
 Intersect DirectionalLight::getIntersect(std::vector<sf::Vector2f> &shapeVectors,  sf::VertexArray ray)
 {
@@ -167,15 +293,44 @@ Intersect DirectionalLight::getIntersect(std::vector<sf::Vector2f> &shapeVectors
 
 
 
+//void DirectionalLight::generateLight(std::vector<sf::Vector2f> &shapePoints, std::vector<float> &uniqueAngles)
+//{
+//
+//    std::vector<Intersect> intersects = getIntersectPoints(shapePoints,uniqueAngles);
+//
+//
+//    sf::VertexArray rayLine(sf::TrianglesFan);
+//    rayLine.append(sf::Vertex(lightVector, sf::Color::White));
+//
+//    sf::VertexArray rays(sf::Lines);
+//
+//    for(int i = 0; i < intersects.size(); i++)
+//    {
+//        rayLine.append(sf::Vertex(intersects[i].getIntersectPoint(), sf::Color::White));
+//
+//        if(shouldDebugLines)
+//        {
+//            rays.append(sf::Vertex(lightVector, sf::Color::Red));
+//            rays.append(sf::Vertex(intersects[i].getIntersectPoint(), sf::Color::Red));
+//        }
+//    }
+//
+//    // rayLine.append(sf::Vertex(intersects[0].getIntersectPoint(),  sf::Color::White));
+//
+//    lightVertexArray = rayLine;
+//    if(shouldDebugLines)
+//    {
+//        debugRays = rays;
+//    }
+//
+//}
+
 void DirectionalLight::generateLight(std::vector<sf::Vector2f> &shapePoints, std::vector<float> &uniqueAngles)
 {
 
     std::vector<Intersect> intersects = getIntersectPoints(shapePoints,uniqueAngles);
-
-
     sf::VertexArray rayLine(sf::TrianglesFan);
     rayLine.append(sf::Vertex(lightVector, sf::Color::White));
-
     sf::VertexArray rays(sf::Lines);
 
     for(int i = 0; i < intersects.size(); i++)
@@ -189,11 +344,9 @@ void DirectionalLight::generateLight(std::vector<sf::Vector2f> &shapePoints, std
         }
     }
 
-     rayLine.append(sf::Vertex(intersects[0].getIntersectPoint(),  sf::Color::White));
-
+    rayLine.append(sf::Vertex(intersects[0].getIntersectPoint(),  sf::Color::White));
     lightVertexArray = rayLine;
-    if(shouldDebugLines)
-    {
+    if(shouldDebugLines){
         debugRays = rays;
     }
 
