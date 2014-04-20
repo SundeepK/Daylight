@@ -11,9 +11,9 @@
 #include <math.h>
 
 
-struct op_comp : std::binary_function<Intersect, Intersect, bool>
+struct IntersectComp : std::binary_function<Intersect, Intersect, bool>
     {
-    op_comp(sf::Vector2f v) : M(v) {}
+    IntersectComp(sf::Vector2f v) : M(v) {}
     bool operator() ( Intersect vec1,  Intersect vec2) {
 
     sf::Vector2f o1 = vec1.getIntersectPoint();
@@ -21,10 +21,6 @@ struct op_comp : std::binary_function<Intersect, Intersect, bool>
 
     double angle1 = atan2(o1.y - M.y, o1.x - M.x);
     double angle2 = atan2(o2.y - M.y, o2.x - M.x);
-
-//        if(angle1 < angle2) return true;
-//        else if (angle2 > angle1) return false;
-//        return false;
 
      float ang1     = atan( ((o1.y - M.y)/(o1.x - M.x) ) * M_PI / 180);
      float ang2     = atan( (o2.y - M.y)/(o2.x - M.x) * M_PI / 180);
@@ -56,7 +52,6 @@ public:
 
 protected:
 private:
-    static bool compareIntersects(Intersect vec1, Intersect vec2);
     std::vector<Intersect> getIntersectPoints( std::vector<sf::Vector2f> &shapeVectors, const std::vector<float> &uniqueAngles);
     void buildLightRays(std::vector<sf::Vector2f> &lightRays);
     Intersect getIntersect(std::vector<sf::Vector2f> &shapeVectors,  sf::VertexArray ray);

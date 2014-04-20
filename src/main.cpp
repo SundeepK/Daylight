@@ -94,7 +94,7 @@ int main()
     lightEngine.addShape(line2);
     lightEngine.addShape(shape1);
     lightEngine.addShape(shape2);
-    lightEngine.debugLightRays(true);
+    lightEngine.debugLightRays(false);
     lightEngine.enableSoftShadow(false);
 
    // LightKey mouseLight = lightEngine.addLight("mouse light", sf::Vector2f(400,400), sf::Color::White, 5);
