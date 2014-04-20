@@ -8,6 +8,35 @@
 #include "Intersect.h"
 #include "VectorMath.h"
 #include "Light.h"
+#include <math.h>
+
+
+struct op_comp : std::binary_function<Intersect, Intersect, bool>
+    {
+    op_comp(sf::Vector2f v) : M(v) {}
+    bool operator() ( Intersect vec1,  Intersect vec2) {
+
+    sf::Vector2f o1 = vec1.getIntersectPoint();
+    sf::Vector2f o2 = vec2.getIntersectPoint();
+
+    double angle1 = atan2(o1.y - M.y, o1.x - M.x);
+    double angle2 = atan2(o2.y - M.y, o2.x - M.x);
+
+//        if(angle1 < angle2) return true;
+//        else if (angle2 > angle1) return false;
+//        return false;
+
+     float ang1     = atan( ((o1.y - M.y)/(o1.x - M.x) ) * M_PI / 180);
+     float ang2     = atan( (o2.y - M.y)/(o2.x - M.x) * M_PI / 180);
+        if(ang1 < ang2) return true;
+        else if (ang1 > ang2) return false;
+        return true;
+
+
+    }
+    sf::Vector2f M;
+    };
+
 
 class DirectionalLight : public Light
 {
