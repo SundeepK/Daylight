@@ -8,12 +8,13 @@
 #include "Intersect.h"
 #include "VectorMath.h"
 #include "Light.h"
+#include "ClosestIntersectionFinder.h"
 
 
 class SpotLight : public Light
 {
 public:
-    SpotLight(const std::string &lightName, const sf::Vector2f &initialPosition, const sf::Color &color, const float initailItensity);
+    SpotLight(const ClosestIntersectionFinder &intersectionFinder, const std::string &lightName, const sf::Vector2f &initialPosition, const sf::Color &color, const float initailItensity);
     ~SpotLight();
     SpotLight(const SpotLight &that);
     SpotLight(SpotLight &&that);
@@ -30,12 +31,15 @@ protected:
 private:
     std::vector<Intersect> getIntersectPoints( std::vector<sf::Vector2f> &shapeVectors, const std::vector<float> &uniqueAngles);
     static bool compareIntersects(Intersect vec1, Intersect vec2);
+
     sf::VertexArray lightVertexArray;
     sf::VertexArray debugRays;
     sf::Vector2f lightVector;
     sf::Color lightColor;
     std::string lightKey;
     float intensity;
+    ClosestIntersectionFinder intersectFinder;
+
 };
 
 #endif // LIGHT_H

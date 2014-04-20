@@ -13,6 +13,7 @@
 #include "VectorMath.h"
 #include <memory>
 #include "DirectionalLight.h"
+#include "ClosestIntersectionFinder.h"
 
 
 struct VectorHash {
@@ -57,6 +58,7 @@ class LightEngine
     sf::Shader blurShader;
     sf::RenderTexture lightRenderTex;
     sf::Color renderColor;
+    ClosestIntersectionFinder intersectFinder;
 
 };
 

@@ -2,10 +2,8 @@
 
 Light::Light()
 {
-    //ctor
 }
 
 Light::~Light()
 {
-    //dtor
 }

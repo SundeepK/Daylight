@@ -1,7 +1,7 @@
 #include "SpotLight.h"
 
-SpotLight::SpotLight(const std::string &lightName, const sf::Vector2f &initialPosition, const sf::Color &color, const float initialItensity)
-    : Light(), lightKey(lightName), lightVector(initialPosition), lightColor(color), intensity(initialItensity)
+SpotLight::SpotLight(const ClosestIntersectionFinder &intersectionFinder,const std::string &lightName, const sf::Vector2f &initialPosition, const sf::Color &color, const float initialItensity)
+    : Light(), intersectFinder(intersectionFinder), lightKey(lightName), lightVector(initialPosition), lightColor(color), intensity(initialItensity)
 {
 }
 
@@ -76,36 +76,13 @@ std::vector<Intersect> SpotLight::getIntersectPoints( std::vector<sf::Vector2f> 
         ray.append(sf::Vertex(lightVector, sf::Color::Black));
         ray.append(sf::Vertex(sf::Vector2f(lightVector.x + x,lightVector.y + y), sf::Color::Black));
 
-        Intersect closestInterect(sf::Vector2f(799,799), 1000);
-        for(int i = 0 ;  i < shapeVectors.size(); i+=2)
-        {
-            sf::Vector2f seg1 =shapeVectors[i];
-            sf::Vector2f seg2 =shapeVectors[i+1];
-            sf::VertexArray segLine(sf::Lines);
-            segLine.append(seg1);
-            segLine.append(seg2);
-            Intersect intersect =  VectorMath::getLineIntersect(ray, segLine);
-
-            if(intersect.getIntersectPoint().x > 0 && intersect.getIntersectPoint().y > 0)
-            {
-                //add only the intersect with the smallest magnitude since it will be closest intersect
-                if(intersect.getParam() < closestInterect.getParam())
-                {
-                    closestInterect = intersect;
-                }
-            }
-
-        }
-
-        if(closestInterect.getParam() < 1000)
-        {
-            closestInterect.setAngle(angle);
-            intersects.push_back(closestInterect);
-        }
+        std::vector<Intersect> closestIntersections = intersectFinder.findClosestIntersection(ray,shapeVectors, angle);
+        intersects.insert(intersects.end(), closestIntersections.begin(), closestIntersections.end());
     }
     std::sort(intersects.begin(), intersects.end(), compareIntersects);
     return intersects;
 }
+
 
 void SpotLight::generateLight(std::vector<sf::Vector2f> &shapePoints, std::vector<float> &uniqueAngles)
 {
@@ -118,7 +95,6 @@ void SpotLight::generateLight(std::vector<sf::Vector2f> &shapePoints, std::vecto
     for(int i = 0; i < intersects.size(); i++)
     {
         rayLine.append(sf::Vertex(intersects[i].getIntersectPoint(), sf::Color::White));
-
         if(shouldDebugLines)
         {
             rays.append(sf::Vertex(lightVector, sf::Color::Red));

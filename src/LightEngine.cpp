@@ -10,6 +10,7 @@ LightEngine::LightEngine(int width, int height, sf::Color engCol) : renderColor(
     lightShader.setParameter("screenHeight",height);
 
     lightRenderTex.create(width,height);
+
 }
 
 LightEngine::~LightEngine()
@@ -107,7 +108,7 @@ LightKey LightEngine::addLight(const std::string &key, const sf::Vector2f &light
 //    if( it != lights.end() )
 //    {
 //        std::unique_ptr<Light> light( new SpotLight(key, lightVector, lightColor, intensity));
-        lights.emplace(std::make_pair(key,  std::unique_ptr<Light> ( new SpotLight(key, lightVector, lightColor, intensity))));
+        lights.emplace(std::make_pair(key,  std::unique_ptr<Light> ( new SpotLight(intersectFinder,key, lightVector, lightColor, intensity))));
 //    }
 
     return LightKey(key);
@@ -120,7 +121,7 @@ LightKey LightEngine::addDirectionLight(const std::string &key, const sf::Vector
 //    if( it != lights.end() )
 //    {
 //        std::unique_ptr<Light> light( new SpotLight(key, lightVector, lightColor, intensity));
-        lights.emplace(std::make_pair(key,  std::unique_ptr<Light> ( new DirectionalLight(key, lightVector, lightColor, intensity, angleIn, openingAngle))));
+        lights.emplace(std::make_pair(key,  std::unique_ptr<Light> ( new DirectionalLight(intersectFinder,key, lightVector, lightColor, intensity, angleIn, openingAngle))));
 //    }
 
     return LightKey(key);

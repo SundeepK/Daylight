@@ -80,7 +80,7 @@
 	<SFML/Window.hpp>
 	<iostream>
 
-1397989043 source:/home/sundeep/code/Daylight/src/Light.cpp
+1398025467 source:/home/sundeep/code/Daylight/src/Light.cpp
 	"Light.h"
 
 1397989042 /home/sundeep/code/Daylight/include/Light.h
@@ -88,10 +88,10 @@
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 
-1397989043 source:/home/sundeep/code/Daylight/src/LightEngine.cpp
+1398025660 source:/home/sundeep/code/Daylight/src/LightEngine.cpp
 	"LightEngine.h"
 
-1397989042 /home/sundeep/code/Daylight/include/LightEngine.h
+1398025240 /home/sundeep/code/Daylight/include/LightEngine.h
 	<SFML/System.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
@@ -104,6 +104,7 @@
 	"VectorMath.h"
 	<memory>
 	"DirectionalLight.h"
+	"ClosestIntersectionFinder.h"
 
 1398016806 source:/home/sundeep/code/Daylight/src/main.cpp
 	<sstream>
@@ -123,7 +124,7 @@
 1397989043 source:/home/sundeep/code/Daylight/src/VectorMath.cpp
 	"VectorMath.h"
 
-1397989042 /home/sundeep/code/Daylight/include/SpotLight.h
+1398025548 /home/sundeep/code/Daylight/include/SpotLight.h
 	<string>
 	<SFML/System.hpp>
 	<SFML/Graphics.hpp>
@@ -131,14 +132,15 @@
 	"Intersect.h"
 	"VectorMath.h"
 	"Light.h"
+	"ClosestIntersectionFinder.h"
 
-1397989043 source:/home/sundeep/code/Daylight/src/SpotLight.cpp
+1398025871 source:/home/sundeep/code/Daylight/src/SpotLight.cpp
 	"SpotLight.h"
 
-1398016667 source:/home/sundeep/code/Daylight/src/DirectionalLight.cpp
+1398026044 source:/home/sundeep/code/Daylight/src/DirectionalLight.cpp
 	"DirectionalLight.h"
 
-1398016785 /home/sundeep/code/Daylight/include/DirectionalLight.h
+1398026072 /home/sundeep/code/Daylight/include/DirectionalLight.h
 	<string>
 	<SFML/System.hpp>
 	<SFML/Graphics.hpp>
@@ -147,4 +149,21 @@
 	"VectorMath.h"
 	"Light.h"
 	<math.h>
+	"ClosestIntersectionFinder.h"
+
+1398023435 source:/home/sundeep/code/Daylight/src/IntersectFinder.cpp
+	"IntersectFinder.h"
+
+1398025898 /home/sundeep/code/Daylight/include/IntersectFinder.h
+	<SFML/System.hpp>
+	<SFML/Graphics.hpp>
+	<SFML/Window.hpp>
+	"Intersect.h"
+
+1398025850 source:/home/sundeep/code/Daylight/src/ClosestIntersectionFinder.cpp
+	"ClosestIntersectionFinder.h"
+
+1398025945 /home/sundeep/code/Daylight/include/ClosestIntersectionFinder.h
+	"IntersectFinder.h"
+	"VectorMath.h"
 

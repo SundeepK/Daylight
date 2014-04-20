@@ -131,7 +131,7 @@ int main()
         App.display();
 
                sf::Vector2f mousePos(sf::Vector2f(sf::Mouse::getPosition(App).x,sf::Mouse::getPosition(App).y));
-       lightEngine.setPosition(secLight4, mousePos);
+       lightEngine.setPosition(mouseLight, mousePos);
     }
 
 

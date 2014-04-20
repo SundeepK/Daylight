@@ -9,6 +9,7 @@
 #include "VectorMath.h"
 #include "Light.h"
 #include <math.h>
+#include "ClosestIntersectionFinder.h"
 
 
 struct IntersectComp : std::binary_function<Intersect, Intersect, bool>
@@ -35,7 +36,7 @@ struct IntersectComp : std::binary_function<Intersect, Intersect, bool>
 class DirectionalLight : public Light
 {
 public:
-    DirectionalLight(const std::string &lightName, const sf::Vector2f &initialPosition, const sf::Color &color, const float initailItensity, const float angle, const float openAngle);
+    DirectionalLight(const ClosestIntersectionFinder &intersectionFinder, const std::string &lightName, const sf::Vector2f &initialPosition, const sf::Color &color, const float initailItensity, const float angle, const float openAngle);
     ~DirectionalLight();
     DirectionalLight(const DirectionalLight &that);
     DirectionalLight(DirectionalLight &&that);
@@ -54,6 +55,9 @@ private:
     void buildLightRays(std::vector<sf::Vector2f> &lightRays);
     Intersect getIntersect(std::vector<sf::Vector2f> &shapeVectors,  sf::VertexArray ray);
     bool isRayInFieldOfView(float facingAngle, float fieldOfViewAngle, sf::Vector2f ray );
+    void addIntersect(const sf::VertexArray &ray, std::vector<sf::Vector2f> &shapeVectors, std::vector<Intersect> &intersects);
+    void addFieldOfViewRay(sf::Vector2f rayLines, std::vector<sf::Vector2f> &shapeVectors, std::vector<Intersect> &intersects, const float angle);
+
 
     sf::VertexArray lightVertexArray;
     sf::VertexArray debugRays;
@@ -62,7 +66,8 @@ private:
     std::string lightKey;
     float intensity;
     float facingAngle;
-    float openingAngle;
+    float fieldOfView;
+    ClosestIntersectionFinder intersectFinder;
 
     std::vector<sf::Vector2f> directionalRays;
 };
