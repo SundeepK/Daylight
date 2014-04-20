@@ -97,12 +97,12 @@ int main()
     lightEngine.debugLightRays(false);
     lightEngine.enableSoftShadow(false);
 
-   // LightKey mouseLight = lightEngine.addLight("mouse light", sf::Vector2f(400,400), sf::Color::White, 5);
-   // LightKey secLight = lightEngine.addLight("mouse light 2", sf::Vector2f(300,350), sf::Color::Yellow, 5);
-  //  LightKey secLight1 = lightEngine.addLight("mouse light 3", sf::Vector2f(300,370), sf::Color::Red, 5);
-   // LightKey secLight2 = lightEngine.addLight("mouse light 4", sf::Vector2f(300,400), sf::Color::Yellow, 5);
-   // LightKey secLight3 = lightEngine.addLight("mouse light 5", sf::Vector2f(350,350), sf::Color::Green, 5);
-    LightKey secLight4 = lightEngine.addDirectionLight("mouse light 6", sf::Vector2f(500,500), sf::Color::Yellow, 5, 180,45);
+    LightKey mouseLight = lightEngine.addLight("mouse light", sf::Vector2f(400,400), sf::Color::White, 5);
+    LightKey secLight = lightEngine.addLight("mouse light 2", sf::Vector2f(300,350), sf::Color::Yellow, 5);
+    LightKey secLight1 = lightEngine.addLight("mouse light 3", sf::Vector2f(300,370), sf::Color::Red, 5);
+    LightKey secLight2 = lightEngine.addLight("mouse light 4", sf::Vector2f(300,400), sf::Color::Yellow, 5);
+    LightKey secLight3 = lightEngine.addLight("mouse light 5", sf::Vector2f(350,350), sf::Color::Green, 5);
+    LightKey secLight4 = lightEngine.addDirectionLight("mouse light 6", sf::Vector2f(500,500), sf::Color::Cyan, 5, 180,45);
 
 
     while (App.isOpen())
