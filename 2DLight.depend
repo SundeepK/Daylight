@@ -74,24 +74,24 @@
 1397324744 source:/home/sundeep/code/Daylight/src/Intersect.cpp
 	"Intersect.h"
 
-1397592631 /home/sundeep/code/Daylight/include/Intersect.h
+1397989042 /home/sundeep/code/Daylight/include/Intersect.h
 	<SFML/System.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 	<iostream>
 
-1397592061 source:/home/sundeep/code/Daylight/src/Light.cpp
+1397989043 source:/home/sundeep/code/Daylight/src/Light.cpp
 	"Light.h"
 
-1397671218 /home/sundeep/code/Daylight/include/Light.h
+1397989042 /home/sundeep/code/Daylight/include/Light.h
 	<SFML/System.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 
-1397933719 source:/home/sundeep/code/Daylight/src/LightEngine.cpp
+1397989043 source:/home/sundeep/code/Daylight/src/LightEngine.cpp
 	"LightEngine.h"
 
-1397683458 /home/sundeep/code/Daylight/include/LightEngine.h
+1397989042 /home/sundeep/code/Daylight/include/LightEngine.h
 	<SFML/System.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
@@ -105,7 +105,7 @@
 	<memory>
 	"DirectionalLight.h"
 
-1397987117 source:/home/sundeep/code/Daylight/src/main.cpp
+1397989780 source:/home/sundeep/code/Daylight/src/main.cpp
 	<sstream>
 	"Intersect.h"
 	<math.h>
@@ -113,17 +113,17 @@
 	<unordered_set>
 	"LightEngine.h"
 
-1397830605 /home/sundeep/code/Daylight/include/VectorMath.h
+1397989042 /home/sundeep/code/Daylight/include/VectorMath.h
 	<SFML/System.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
 	<math.h>
 	"Intersect.h"
 
-1397830611 source:/home/sundeep/code/Daylight/src/VectorMath.cpp
+1397989043 source:/home/sundeep/code/Daylight/src/VectorMath.cpp
 	"VectorMath.h"
 
-1397830564 /home/sundeep/code/Daylight/include/SpotLight.h
+1397989042 /home/sundeep/code/Daylight/include/SpotLight.h
 	<string>
 	<SFML/System.hpp>
 	<SFML/Graphics.hpp>
@@ -132,13 +132,13 @@
 	"VectorMath.h"
 	"Light.h"
 
-1397940898 source:/home/sundeep/code/Daylight/src/SpotLight.cpp
+1397989043 source:/home/sundeep/code/Daylight/src/SpotLight.cpp
 	"SpotLight.h"
 
-1397988761 source:/home/sundeep/code/Daylight/src/DirectionalLight.cpp
+1397989043 source:/home/sundeep/code/Daylight/src/DirectionalLight.cpp
 	"DirectionalLight.h"
 
-1397988755 /home/sundeep/code/Daylight/include/DirectionalLight.h
+1397989042 /home/sundeep/code/Daylight/include/DirectionalLight.h
 	<string>
 	<SFML/System.hpp>
 	<SFML/Graphics.hpp>
