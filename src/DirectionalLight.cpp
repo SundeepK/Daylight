@@ -54,6 +54,17 @@ float DirectionalLight::getIntensity()
     return intensity;
 }
 
+bool DirectionalLight::isRayInFieldOfView(float facingAngle, float fieldOfViewAngle, sf::Vector2f ray ){
+
+        sf::Vector2f lightDir ( cos(facingAngle), sin(facingAngle) );
+        sf::Vector2f normalRay = VectorMath::normalize(sf::Vector2f (ray.x - lightVector.x, ray.y - lightVector.y  ) );
+        sf::Vector2f normalLightDir = VectorMath::normalize(lightDir);
+
+        float a = acos((normalRay.x * normalLightDir.x) + (normalRay.y * normalLightDir.y));
+        return a  > fieldOfViewAngle;
+
+}
+
 std::vector<Intersect> DirectionalLight::getIntersectPoints( std::vector<sf::Vector2f> &shapeVectors, const std::vector<float> &uniqueAngles)
 {
     std::vector<Intersect> intersects;
@@ -72,15 +83,10 @@ std::vector<Intersect> DirectionalLight::getIntersectPoints( std::vector<sf::Vec
         ray.append(sf::Vertex(lightVector, sf::Color::Black));
         ray.append(sf::Vertex(sf::Vector2f(lightVector.x + x,lightVector.y + y), sf::Color::Black));
 
-        sf::Vector2f lightDIr ( cos(fangle), sin(fangle) );
-        sf::Vector2f normalIntersectVec = VectorMath::normalize(sf::Vector2f (rayl.x - lightVector.x, rayl.y - lightVector.y  ) );
-        sf::Vector2f normalLIghtV = VectorMath::normalize(lightDIr);
-
-        float a = acos((normalIntersectVec.x * normalLIghtV.x) + (normalIntersectVec.y * normalLIghtV.y));
-
-        if(a  > offsetAngle ){
+        if(isRayInFieldOfView(fangle, offsetAngle, rayl)){
             continue;
         }
+
             Intersect closestInterect(sf::Vector2f(799,799), 1000);
             for(int i = 0 ;  i < shapeVectors.size(); i+=2)
             {
