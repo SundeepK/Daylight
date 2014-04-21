@@ -46,14 +46,18 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="include/ClosestIntersectionFinder.h" />
 		<Unit filename="include/DirectionalLight.h" />
 		<Unit filename="include/Intersect.h" />
+		<Unit filename="include/IntersectFinder.h" />
 		<Unit filename="include/Light.h" />
 		<Unit filename="include/LightEngine.h" />
 		<Unit filename="include/SpotLight.h" />
 		<Unit filename="include/VectorMath.h" />
+		<Unit filename="src/ClosestIntersectionFinder.cpp" />
 		<Unit filename="src/DirectionalLight.cpp" />
 		<Unit filename="src/Intersect.cpp" />
+		<Unit filename="src/IntersectFinder.cpp" />
 		<Unit filename="src/Light.cpp" />
 		<Unit filename="src/LightEngine.cpp" />
 		<Unit filename="src/SpotLight.cpp" />
