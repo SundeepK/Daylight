@@ -83,7 +83,7 @@
 1398025467 source:/home/sundeep/code/Daylight/src/Light.cpp
 	"Light.h"
 
-1397989042 /home/sundeep/code/Daylight/include/Light.h
+1398201921 /home/sundeep/code/Daylight/include/Light.h
 	<SFML/System.hpp>
 	<SFML/Graphics.hpp>
 	<SFML/Window.hpp>
@@ -134,13 +134,13 @@
 	"Light.h"
 	"ClosestIntersectionFinder.h"
 
-1398025871 source:/home/sundeep/code/Daylight/src/SpotLight.cpp
+1398026150 source:/home/sundeep/code/Daylight/src/SpotLight.cpp
 	"SpotLight.h"
 
 1398026044 source:/home/sundeep/code/Daylight/src/DirectionalLight.cpp
 	"DirectionalLight.h"
 
-1398026072 /home/sundeep/code/Daylight/include/DirectionalLight.h
+1398201921 /home/sundeep/code/Daylight/include/DirectionalLight.h
 	<string>
 	<SFML/System.hpp>
 	<SFML/Graphics.hpp>

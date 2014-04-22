@@ -39,7 +39,6 @@ public:
     DirectionalLight(const ClosestIntersectionFinder &intersectionFinder, const std::string &lightName, const sf::Vector2f &initialPosition, const sf::Color &color, const float initailItensity, const float angle, const float openAngle);
     ~DirectionalLight();
     DirectionalLight(const DirectionalLight &that);
-    DirectionalLight(DirectionalLight &&that);
 
     sf::Vector2f getVec() ;
     void setVec(const sf::Vector2f &lightVec) ;

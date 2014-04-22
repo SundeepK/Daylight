@@ -19,7 +19,6 @@ class Light
     public:
         Light();
         virtual ~Light();
-        Light(Light &&light);
         virtual void generateLight(std::vector<sf::Vector2f> &shapePoints, std::vector<float> &uniqueAngles) = 0;
         virtual void render(sf::RenderTarget &renderTarget, sf::RenderStates &renderState) = 0;
         virtual sf::Vector2f getVec()  = 0;
