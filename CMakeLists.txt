@@ -20,7 +20,8 @@ set(DAYLIGHT_SOURCES "${SHAD}blur_x.frag"  "${SHAD}blur_y.frag" "${SHAD}lightFs.
 #file(GLOB DAYLIGHT_SOURCES *.cpp)
 add_executable(${EXECUTABLE_NAME} ${DAYLIGHT_SOURCES})
 
-# Detect and add SFML
+file(COPY ${SHAD} DESTINATION "shaders")
+
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 #Find any version 2.X of SFML
 #See the FindSFML.cmake file for additional details and instructions
