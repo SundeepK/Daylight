@@ -16,11 +16,10 @@ To build the demo sandbox test that comes with Daylight, you will need to do the
 
 ```bash
 
-mkdir build
-cd build
-cmake ..
-make
-
+/Daylight $ mkdir build
+/Daylight $ cd build/
+/Daylight/build $ cmake ..
+/Daylight/build $ make
 ```
 Then simple cd to the build directory and run the executable.
 
