@@ -104,7 +104,16 @@ int main()
     LightKey secLight3 = lightEngine.addLight("mouse light 5", sf::Vector2f(350,350), sf::Color::Green, 5);
     LightKey secLight4 = lightEngine.addDirectionLight("mouse light 6", sf::Vector2f(500,500), sf::Color::Cyan, 5, 180,20);
 
+    sf::Font font;
+    if (!font.loadFromFile("fonts/Ubuntu-M.ttf")){
+        //do nothing its just a test
+    }
 
+
+    sf::Text FPS;
+    FPS.setFont(font);
+    FPS.setColor(sf::Color::White);
+    FPS.setCharacterSize(25);
     while (App.isOpen())
     {
         sf::Event Event;
@@ -121,17 +130,24 @@ int main()
        App.clear(sf::Color::White);
 
 
-
-        lightEngine.draw(App);
+       lightEngine.draw(App);
 
         App.draw(line1);
         App.draw(line2);
         App.draw(shape1);
         App.draw(shape2);
+
+       float fpsCount = (1.f / Clock.getElapsedTime().asSeconds());
+       FPS.setString( "FPS: " + (std::to_string(fpsCount)) );
+       FPS.setPosition(sf::Vector2f(20,20));
+       App.draw(FPS);
+
         App.display();
 
-               sf::Vector2f mousePos(sf::Vector2f(sf::Mouse::getPosition(App).x,sf::Mouse::getPosition(App).y));
+       sf::Vector2f mousePos(sf::Vector2f(sf::Mouse::getPosition(App).x,sf::Mouse::getPosition(App).y));
        lightEngine.setPosition(mouseLight, mousePos);
+
+
     }
 
 
