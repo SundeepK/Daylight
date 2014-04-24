@@ -99,7 +99,7 @@ void SpotLight::generateLightRays(std::vector<sf::Vector2f> &shapePoints, std::v
     sf::VertexArray lightRays(sf::TrianglesFan);
     sf::VertexArray debugLightRays(sf::Lines);
     buildLightRayVertexes(lightRays, debugLightRays, intersects);
-
+    lightRays.append(sf::Vertex(intersects[0].getIntersectPoint(),  sf::Color::White));
     lightVertexArray.clear();
     lightVertexArray = lightRays;
 
