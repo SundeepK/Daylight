@@ -97,7 +97,7 @@ int main()
     lightEngine.debugLightRays(false);
     lightEngine.enableSoftShadow(true);
 
-    LightKey mouseLight = lightEngine.addLight("mouse light", sf::Vector2f(400,400), sf::Color::White, 5, false);
+    LightKey mouseLight = lightEngine.addLight("mouse light", sf::Vector2f(400,400), sf::Color::White, 5, true);
     LightKey secLight = lightEngine.addLight("mouse light 2", sf::Vector2f(300,350), sf::Color::Yellow, 5, false);
     LightKey secLight1 = lightEngine.addLight("mouse light 3", sf::Vector2f(300,370), sf::Color::Red, 5, false);
     LightKey secLight2 = lightEngine.addLight("mouse light 4", sf::Vector2f(300,400), sf::Color::Yellow, 5, false);
@@ -141,7 +141,7 @@ int main()
        FPS.setPosition(sf::Vector2f(20,20));
        App.draw(FPS);
 
-        App.display();
+       App.display();
 
        sf::Vector2f mousePos(sf::Vector2f(sf::Mouse::getPosition(App).x,sf::Mouse::getPosition(App).y));
        lightEngine.setPosition(mouseLight, mousePos);

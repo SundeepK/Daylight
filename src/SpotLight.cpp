@@ -36,7 +36,9 @@ std::string SpotLight::getKey()
 
 void SpotLight::setVec(const sf::Vector2f &lightVec)
 {
-    lightVector = lightVec;
+    if(isDynamicLight){
+        lightVector = lightVec;
+    }
 }
 
 sf::Color SpotLight::getColor()
