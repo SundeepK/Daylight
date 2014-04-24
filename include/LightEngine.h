@@ -28,9 +28,8 @@ class LightEngine
 
         LightEngine(int width, int height, sf::Color);
         ~LightEngine();
-        LightKey addLight(const std::string &key, const sf::Vector2f &lightVector, const sf::Color &lightColor, const float intensity);
-        LightKey addDirectionLight(const std::string &key, const sf::Vector2f &lightVector, const sf::Color &lightColor, const float intensity, const float angleIn, const float openingAngle );
-
+        LightKey addLight(const std::string &key, const sf::Vector2f &lightVector, const sf::Color &lightColor, const float intensity, const bool isDynamic);
+        LightKey addDirectionLight(const std::string &key, const sf::Vector2f &lightVector, const sf::Color &lightColor, const float intensity, const float angleIn, const float openingAngle,  const bool isDynamic );
         void removeLight(const LightKey &lightKey);
         void setPosition(const LightKey &lightKey, const sf::Vector2f &newPosition);
         std::vector<LightKey> getLightKeys();

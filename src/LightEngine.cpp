@@ -102,26 +102,26 @@ void LightEngine::draw(sf::RenderWindow &renderWindow)
 }
 
 
-LightKey LightEngine::addLight(const std::string &key, const sf::Vector2f &lightVector, const sf::Color &lightColor, const float intensity)
+LightKey LightEngine::addLight(const std::string &key, const sf::Vector2f &lightVector, const sf::Color &lightColor, const float intensity, const bool isDynamic)
 {
     auto it = lights.find(key);
 //    if( it != lights.end() )
 //    {
 //        std::unique_ptr<Light> light( new SpotLight(key, lightVector, lightColor, intensity));
-        lights.emplace(std::make_pair(key,  std::unique_ptr<Light> ( new SpotLight(intersectFinder,key, lightVector, lightColor, intensity))));
+        lights.emplace(std::make_pair(key,  std::unique_ptr<Light> ( new SpotLight(intersectFinder,key, lightVector, lightColor, intensity, isDynamic))));
 //    }
 
     return LightKey(key);
 }
 
 LightKey LightEngine::addDirectionLight(const std::string &key, const sf::Vector2f &lightVector, const sf::Color &lightColor,
-                                                    const float intensity, const float angleIn, const float openingAngle ){
+                                                    const float intensity, const float angleIn, const float openingAngle,  const bool isDynamic ){
 
         auto it = lights.find(key);
 //    if( it != lights.end() )
 //    {
 //        std::unique_ptr<Light> light( new SpotLight(key, lightVector, lightColor, intensity));
-        lights.emplace(std::make_pair(key,  std::unique_ptr<Light> ( new DirectionalLight(intersectFinder,key, lightVector, lightColor, intensity, angleIn, openingAngle))));
+        lights.emplace(std::make_pair(key,  std::unique_ptr<Light> ( new DirectionalLight(intersectFinder,key, lightVector, lightColor, intensity, angleIn, openingAngle, isDynamic))));
 //    }
 
     return LightKey(key);

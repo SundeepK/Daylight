@@ -1,8 +1,8 @@
 #include "DirectionalLight.h"
 
 DirectionalLight::DirectionalLight(const ClosestIntersectionFinder &intersectionFinder,const std::string &lightName, const sf::Vector2f &initialPosition,
-        const sf::Color &color, const float initailItensity, const float angleIn, const float openAngle)
-    : Light(), intersectFinder(intersectionFinder), lightKey(lightName), lightVector(initialPosition), lightColor(color), intensity(initailItensity), facingAngle(angleIn), fieldOfView(openAngle)
+        const sf::Color &color, const float initailItensity, const float angleIn, const float openAngle, const bool isDynamic)
+    : Light(), intersectFinder(intersectionFinder), lightKey(lightName), lightVector(initialPosition), lightColor(color), intensity(initailItensity), facingAngle(angleIn), fieldOfView(openAngle), isDynamicLight(isDynamic)
 {
     buildLightRays(directionalRays);
 }
@@ -108,34 +108,42 @@ void DirectionalLight::addFieldOfViewRay(sf::Vector2f rayLines, std::vector<sf::
 
 void DirectionalLight::generateLight(std::vector<sf::Vector2f> &shapePoints, std::vector<float> &uniqueAngles)
 {
+    if(!isDynamicLight && !hasGeneratedLightBefore){
+      generateLightRays(shapePoints,uniqueAngles );
+      hasGeneratedLightBefore = true;
+    }else if(isDynamicLight){
+      generateLightRays(shapePoints,uniqueAngles );
+    }
+}
 
+void DirectionalLight::generateLightRays(std::vector<sf::Vector2f> &shapePoints, std::vector<float> &uniqueAngles){
     std::vector<Intersect> intersects = getIntersectPoints(shapePoints,uniqueAngles);
-    sf::VertexArray rayLine(sf::TrianglesFan);
+    sf::VertexArray lightRays(sf::TrianglesFan);
+    sf::VertexArray debugLightRays(sf::Lines);
+    buildLightRayVertexes(lightRays, debugLightRays, intersects);
+
+    lightVertexArray.clear();
+    lightVertexArray = lightRays;
+
+    if(shouldDebugLines)
+    {
+        debugRays = debugLightRays;
+    }
+}
+
+void DirectionalLight::buildLightRayVertexes(sf::VertexArray &rayLine, sf::VertexArray &debugLightRays,  std::vector<Intersect> &intersects)
+{
     rayLine.append(sf::Vertex(lightVector, sf::Color::White));
-
-    sf::VertexArray rays(sf::Lines);
-
     for(int i = 0; i < intersects.size(); i++)
     {
         sf::Vector2f v = intersects[i].getIntersectPoint();
         rayLine.append(sf::Vertex(v, sf::Color::White));
-
         if(shouldDebugLines)
         {
-            rays.append(sf::Vertex(lightVector, sf::Color::Red));
-            rays.append(sf::Vertex(intersects[i].getIntersectPoint(), sf::Color::Red));
+            debugLightRays.append(sf::Vertex(lightVector, sf::Color::Red));
+            debugLightRays.append(sf::Vertex(intersects[i].getIntersectPoint(), sf::Color::Red));
         }
     }
-
-    lightVertexArray.clear();
-    lightVertexArray = rayLine;
-
-    if(shouldDebugLines)
-    {
-
-        debugRays = rays;
-    }
-
 }
 
 void DirectionalLight::render(sf::RenderTarget &target, sf::RenderStates &renderState)

@@ -36,7 +36,8 @@ struct IntersectComp : std::binary_function<Intersect, Intersect, bool>
 class DirectionalLight : public Light
 {
 public:
-    DirectionalLight(const ClosestIntersectionFinder &intersectionFinder, const std::string &lightName, const sf::Vector2f &initialPosition, const sf::Color &color, const float initailItensity, const float angle, const float openAngle);
+    DirectionalLight(const ClosestIntersectionFinder &intersectionFinder, const std::string &lightName, const sf::Vector2f &initialPosition,
+                                            const sf::Color &color, const float initailItensity, const float angle, const float openAngle, const bool isDynamic);
     ~DirectionalLight();
     DirectionalLight(const DirectionalLight &that);
 
@@ -56,7 +57,8 @@ private:
     bool isRayInFieldOfView(float facingAngle, float fieldOfViewAngle, sf::Vector2f ray );
     void addIntersect(const sf::VertexArray &ray, std::vector<sf::Vector2f> &shapeVectors, std::vector<Intersect> &intersects);
     void addFieldOfViewRay(sf::Vector2f rayLines, std::vector<sf::Vector2f> &shapeVectors, std::vector<Intersect> &intersects, const float angle);
-
+    void generateLightRays(std::vector<sf::Vector2f> &shapePoints, std::vector<float> &uniqueAngles);
+    void buildLightRayVertexes(sf::VertexArray &rayLine, sf::VertexArray &debugLightRays,  std::vector<Intersect> &intersects);
 
     sf::VertexArray lightVertexArray;
     sf::VertexArray debugRays;
@@ -67,7 +69,8 @@ private:
     float facingAngle;
     float fieldOfView;
     ClosestIntersectionFinder intersectFinder;
-
+    bool isDynamicLight;
+    bool hasGeneratedLightBefore;
     std::vector<sf::Vector2f> directionalRays;
 };
 

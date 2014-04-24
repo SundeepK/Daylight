@@ -1,7 +1,7 @@
 #include "SpotLight.h"
 
-SpotLight::SpotLight(const ClosestIntersectionFinder &intersectionFinder,const std::string &lightName, const sf::Vector2f &initialPosition, const sf::Color &color, const float initialItensity)
-    : Light(), intersectFinder(intersectionFinder), lightKey(lightName), lightVector(initialPosition), lightColor(color), intensity(initialItensity)
+SpotLight::SpotLight(const ClosestIntersectionFinder &intersectionFinder,const std::string &lightName, const sf::Vector2f &initialPosition, const sf::Color &color, const float initialItensity, const bool isDynamic)
+    : Light(), intersectFinder(intersectionFinder), lightKey(lightName), lightVector(initialPosition), lightColor(color), intensity(initialItensity), isDynamicLight(isDynamic)
 {
 }
 
@@ -86,28 +86,41 @@ std::vector<Intersect> SpotLight::getIntersectPoints( std::vector<sf::Vector2f> 
 
 void SpotLight::generateLight(std::vector<sf::Vector2f> &shapePoints, std::vector<float> &uniqueAngles)
 {
+    if(!isDynamicLight && !hasGeneratedLightBefore){
+      generateLightRays(shapePoints,uniqueAngles );
+      hasGeneratedLightBefore = true;
+    }else if(isDynamicLight){
+      generateLightRays(shapePoints,uniqueAngles );
+    }
+}
 
+void SpotLight::generateLightRays(std::vector<sf::Vector2f> &shapePoints, std::vector<float> &uniqueAngles){
     std::vector<Intersect> intersects = getIntersectPoints(shapePoints,uniqueAngles);
-    sf::VertexArray rayLine(sf::TrianglesFan);
-    rayLine.append(sf::Vertex(lightVector, sf::Color::White));
-    sf::VertexArray rays(sf::Lines);
+    sf::VertexArray lightRays(sf::TrianglesFan);
+    sf::VertexArray debugLightRays(sf::Lines);
+    buildLightRayVertexes(lightRays, debugLightRays, intersects);
 
+    lightVertexArray.clear();
+    lightVertexArray = lightRays;
+
+    if(shouldDebugLines)
+    {
+        debugRays = debugLightRays;
+    }
+}
+
+void SpotLight::buildLightRayVertexes(sf::VertexArray &rayLine, sf::VertexArray &debugLightRays,  std::vector<Intersect> &intersects){
+    rayLine.append(sf::Vertex(lightVector, sf::Color::White));
     for(int i = 0; i < intersects.size(); i++)
     {
-        rayLine.append(sf::Vertex(intersects[i].getIntersectPoint(), sf::Color::White));
+        sf::Vector2f v = intersects[i].getIntersectPoint();
+        rayLine.append(sf::Vertex(v, sf::Color::White));
         if(shouldDebugLines)
         {
-            rays.append(sf::Vertex(lightVector, sf::Color::Red));
-            rays.append(sf::Vertex(intersects[i].getIntersectPoint(), sf::Color::Red));
+            debugLightRays.append(sf::Vertex(lightVector, sf::Color::Red));
+            debugLightRays.append(sf::Vertex(intersects[i].getIntersectPoint(), sf::Color::Red));
         }
     }
-
-    rayLine.append(sf::Vertex(intersects[0].getIntersectPoint(),  sf::Color::White));
-    lightVertexArray = rayLine;
-    if(shouldDebugLines){
-        debugRays = rays;
-    }
-
 }
 
 
