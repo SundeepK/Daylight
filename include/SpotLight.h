@@ -26,7 +26,7 @@ public:
     float getIntensity() ;
     void generateLight(std::vector<sf::Vector2f> &shapePoints, std::vector<float> &uniqueAngles) ;
     void render(sf::RenderTarget &renderTarget, sf::RenderStates &renderState) ;
-
+    bool shouldRenderLight();
 protected:
 private:
     std::vector<Intersect> getIntersectPoints( std::vector<sf::Vector2f> &shapeVectors, const std::vector<float> &uniqueAngles);

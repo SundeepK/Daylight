@@ -85,6 +85,20 @@ std::vector<Intersect> SpotLight::getIntersectPoints( std::vector<sf::Vector2f> 
     return intersects;
 }
 
+bool SpotLight::shouldRenderLight(){
+    bool shouldDrawLight;
+    if(!isDynamicLight && !hasGeneratedLightBefore)
+    {
+        return true;
+    }
+    else if(isDynamicLight)
+    {
+        return true;
+    }
+    else{
+        return false;
+    }
+}
 
 void SpotLight::generateLight(std::vector<sf::Vector2f> &shapePoints, std::vector<float> &uniqueAngles)
 {

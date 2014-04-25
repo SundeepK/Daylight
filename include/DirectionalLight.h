@@ -47,7 +47,8 @@ public:
     sf::Color getColor() ;
     float getIntensity() ;
     void generateLight(std::vector<sf::Vector2f> &shapePoints, std::vector<float> &uniqueAngles) ;
-    void render(sf::RenderTarget &renderTarget, sf::RenderStates &renderState) ;
+    void render(sf::RenderTarget &renderTarget, sf::RenderStates &renderState);
+    bool shouldRenderLight();
 
 protected:
 private:

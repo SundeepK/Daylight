@@ -55,6 +55,22 @@ float DirectionalLight::getIntensity()
     return intensity;
 }
 
+bool DirectionalLight::shouldRenderLight(){
+    bool shouldDrawLight;
+    if(!isDynamicLight && !hasGeneratedLightBefore)
+    {
+        shouldDrawLight = true;
+    }
+    else if(isDynamicLight)
+    {
+        shouldDrawLight = true;
+    }
+    else{
+        shouldDrawLight = false;
+    }
+    return shouldDrawLight;
+}
+
 bool DirectionalLight::isRayInFieldOfView(float facingAngle, float fieldOfViewAngle, sf::Vector2f ray ){
 
         sf::Vector2f lightDir ( cos(facingAngle), sin(facingAngle) );

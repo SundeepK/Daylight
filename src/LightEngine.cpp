@@ -73,24 +73,25 @@ void LightEngine::draw(sf::RenderWindow &renderWindow)
     for ( auto lightItr = lights.begin(); lightItr!= lights.end(); ++lightItr )
     {
         std::unique_ptr<Light> &light = lightItr->second;
-        sf::Color lightColor = light->getColor();
-        lightShader.setParameter("lightpos",light->getVec());
-        lightShader.setParameter("lightColor", sf::Vector3f(lightColor.r, lightColor.g, lightColor.b));
-        lightShader.setParameter("intensity", light->getIntensity());
 
-        std::vector<float> angles = getUniqueAngles(light->getVec());
+        if(light->shouldRenderLight()){
+            std::vector<float> angles = getUniqueAngles(light->getVec());
+            light->generateLight(shapeVectors,angles);
+        }
 
          if(shoulDebugLines){
             light->shouldDebugLines = true;
         }
 
-        light->generateLight(shapeVectors,angles);
+        sf::Color lightColor = light->getColor();
+        lightShader.setParameter("lightpos",light->getVec());
+        lightShader.setParameter("lightColor", sf::Vector3f(lightColor.r, lightColor.g, lightColor.b));
+        lightShader.setParameter("intensity", light->getIntensity());
         light->render(lightRenderTex, r1);
 
     }
 
     lightRenderTex.display();
-
     sf::RenderStates r(sf::BlendMultiply);
 
     if(shouldUseSoftBlur){
@@ -98,7 +99,6 @@ void LightEngine::draw(sf::RenderWindow &renderWindow)
     }
 
     renderWindow.draw(sf::Sprite (lightRenderTex.getTexture()), r);
-
 }
 
 
@@ -140,8 +140,6 @@ void LightEngine::setPosition(const LightKey &lightKey, const sf::Vector2f &newP
         light->setVec(newPosition);
          got->second = std::move(light);
     }
-    int i = 0;
-
 }
 
 void LightEngine::debugLightRays(bool debugLines){
