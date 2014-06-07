@@ -12,6 +12,6 @@ void main()
 	pixel.y=screenHeight-pixel.y;
 	vec2 diff=lightpos-pixel;
 	float distance=length(diff);
-    vec4 color=vec4(lightColor.x,lightColor.y, lightColor.z, (1/distance)*intensity);
+    vec4 color=vec4(lightColor.x,lightColor.y, lightColor.z, (1.0/distance)*intensity);
 	gl_FragColor = color;
 }
